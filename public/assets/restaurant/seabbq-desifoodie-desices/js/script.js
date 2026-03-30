@@ -1,0 +1,335 @@
+
+(function ($) {
+    "use strict";
+
+    /*============================================
+    // Preloader
+    ============================================*/
+    if ($('.preloader').length > 0) {
+
+        window.onload = function () {
+            const preloader = document.querySelector('.preloader');
+            preloader.classList.add('hidden');
+        };
+    }
+
+
+    // header-next
+    var getHeaderHeight = function () {
+        var headerNext = $(".header-next");
+        var header = $(".header-area");
+        var headerHeight = header.height();
+        headerNext.css({
+            "margin-top": headerHeight + "px"
+        });
+    }
+    getHeaderHeight();
+
+    $(window).on('resize', function () {
+        getHeaderHeight();
+    });
+
+    /*============================================
+    nice select
+    ============================================*/
+    $(document).ready(function () {
+        $('.nice-select').niceSelect();
+    });
+
+    /*============================================
+    Select2
+    ============================================*/
+    $('.select2').select2();
+
+    /*============================================
+        Youtube popup
+    ============================================*/
+    $(".youtube-popup").magnificPopup({
+        disableOn: 300,
+        type: "iframe",
+        mainClass: "mfp-fade",
+        removalDelay: 160,
+        preloader: false,
+        fixedContentPos: false
+    })
+
+    /*============================================
+    AOS js init
+    ============================================*/
+    AOS.init({
+        easing: "ease",
+        duration: 1200,
+        once: true,
+        offset: 60,
+        disable: "mobile"
+    });
+
+    // =============  Dynamic Year =========
+    if ($('.dynamic-year').length > 0) {
+        const yearElement = document.querySelector('.dynamic-year');
+        const currentYear = new Date().getFullYear();
+        yearElement.innerHTML = currentYear;
+    }
+
+    /******************************
+    Tol Tip
+    ********************************/
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+
+    /*============================================
+    Toggle List
+    ============================================*/
+    $("[data-toggle-list]").each(function () {
+
+        var show_more = "Show More +";
+        var show_less = "Show Less -";
+
+        var list = $(this).children();
+        var listShow = $(this).data("toggle-show");
+        var listShowBtn = $(this).next("[data-toggle-btn]");
+
+        var showMoreText = show_more + '';
+        var showLessText = show_less + '';
+
+        if (list.length > listShow) {
+            listShowBtn.show();
+            list.slice(listShow).hide();
+            listShowBtn.on("click", function () {
+                var isExpanded = listShowBtn.text() === showLessText;
+                list.slice(listShow).slideToggle(300);
+                listShowBtn.text(isExpanded ? showMoreText : showLessText);
+            });
+        } else {
+            listShowBtn.hide();
+        }
+    });
+
+    /*============================================
+        data att background image
+    ============================================*/
+    function lazyLoadBackground() {
+        $(".bg-img").each(function () {
+            var el = $(this);
+            if (el.attr("data-bg-image") && el.is(":visible") && el.offset().top < $(window).scrollTop() + $(window).height()) {
+                var src = el.attr("data-bg-image");
+                el.css({
+                    "background-image": "url(" + src + ")",
+                }).removeAttr("data-bg-image");
+            }
+        });
+    }
+    lazyLoadBackground();
+    $(window).on("scroll", lazyLoadBackground);
+
+
+    /*============================================
+    Image to background image
+    ============================================*/
+    $(".img-to-bg.blur-up").parent().addClass('blur-up lazyload');
+
+    $(".img-to-bg").each(function () {
+        var el = $(this), src = el.attr("src"), parent = el.parent();
+
+        parent.css({
+            "background-image": "url(" + src + ")",
+            "background-size": "cover",
+            "background-position": "center",
+            "display": "block"
+        });
+
+        el.hide();
+    });
+
+    /*============================================
+        Lazyload image
+    ============================================*/
+    var lazyLoad = function () {
+        window.lazySizesConfig = window.lazySizesConfig || {};
+        window.lazySizesConfig.loadMode = 2;
+        lazySizesConfig.preloadAfterLoad = true;
+
+        var lazyContainer = $(".lazy-container");
+
+        if (lazyContainer.children(".lazyloaded")) {
+            lazyContainer.addClass("lazy-active")
+        } else {
+            lazyContainer.removeClass("lazy-active")
+        }
+    }
+
+    $(document).ready(function () {
+        lazyLoad();
+    })
+
+
+
+    // Elements to inject
+    var mySVGsToInject = document.querySelectorAll('img.img-to-svg');
+
+    // Do the injection
+    SVGInjector(mySVGsToInject);
+
+    // odometer CountDown
+    if ($('.odometer').length > 0) {
+        $('.odometer').each(function () {
+            var $this = $(this);
+            $this.appear(function () {
+                var countNumber = $this.attr("data-count");
+                var odometer = new Odometer({
+                    el: $this[0],
+                    value: 0,
+                    format: '',
+                    duration: 1500,
+                });
+                odometer.update(countNumber);
+            }, { accX: 0, accY: 0 });
+        });
+    }
+
+    /*============================================
+        default Slider
+    ============================================*/
+    $(".default-slider").each(function () {
+        var web_slider = $(this);
+        var id = web_slider.attr("id");
+        var sliderId = "#" + id;
+
+        var isCentered = web_slider.data("center");
+        var isloop = web_slider.data("loop");
+
+        var swiper = new Swiper(sliderId, {
+            spaceBetween: web_slider.data("slidespace"),
+            centeredSlides: isCentered === true || isCentered === "true" ? true : false,
+            loop: isloop === true || isloop === "true" ? true : false,
+            speed: 1000,
+            rtl: $('html').attr('dir') === 'rtl',
+            pagination: {
+                el: sliderId + "-pagination",
+                clickable: true,
+            },
+
+            navigation: {
+                nextEl: sliderId + "-next",
+                prevEl: sliderId + "-prev",
+            },
+
+            breakpoints: {
+                0: {
+                    slidesPerView: web_slider.data("xsmview"),
+                },
+                420: {
+                    slidesPerView: web_slider.data("smview"),
+                },
+                768: {
+                    slidesPerView: web_slider.data("mdview"),
+                },
+                992: {
+                    slidesPerView: web_slider.data("lgview"),
+                },
+                1199: {
+                    slidesPerView: web_slider.data("xlview"),
+                }
+            },
+        });
+    });
+
+
+
+    /*-----------------------------
+        Testimonial Slider start
+    -----------------------------*/
+    if ($('.testimonial-slider').length > 0) {
+        var swiper = new Swiper(".testimonial-slider", {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            rtl: $('html').attr('dir') === 'rtl',
+            autoHeight: true, 
+            pagination: {
+                el: ".testimonial-slider-pagination",
+                clickable: true,
+            },
+        });
+    }
+    /*--- Testimonial Slider End ---*/
+
+
+
+    /*-----------------------------
+        Home 11 js start
+    -----------------------------*/
+
+    /* ----- Real Slider ------ */
+    if ($('.real-slider').length > 0) {
+        var swiper = new Swiper(".real-slider", {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            rtl: $('html').attr('dir') === 'rtl',
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            // loop: true,
+            breakpoints: {
+                1024: { slidesPerView: 3 },
+                768: { slidesPerView: 2 },
+                0: { slidesPerView: 1 },
+            },
+        });
+    }
+    /* ----- Testimonial Slider ------ */
+    if ($('.testimonial-slider-v2').length > 0) {
+        var swiper = new Swiper(".testimonial-slider-v2", {
+            spaceBetween: 24,
+            oop: true,
+            centeredSlides: true,
+            slidesPerView: 2,
+            loop: true,
+            rtl: $('html').attr('dir') === 'rtl',
+            pagination: {
+                el: ".testimonial-slider-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                992: {
+                    slidesPerView: 2,
+                },
+            }
+        });
+    }
+
+
+    /*-----------------------------
+        Home 12 js start
+    -----------------------------*/
+
+
+
+    $(document).on('change', '.languageChange', function (e) {
+        e.preventDefault();
+        const that = $(this);
+        const url = that.val()
+        return location.href = url;
+    });
+
+    $(document).on('click', '.close', function (e) {
+       $('#variationModal').modal('hide');
+    });
+
+})(jQuery);
+
+

@@ -1,0 +1,17 @@
+.error {
+    color: red;
+}
+
+.receipt-error {
+    color: red;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.method-error {
+    color: red;
+}
+
+.dis-none {
+    display: none;
+}

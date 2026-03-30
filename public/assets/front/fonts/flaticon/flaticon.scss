@@ -1,0 +1,53 @@
+$flaticon-font: "flaticon";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?18674b194478435a574fdce3cdcbe7e0") format("truetype"),
+url("./flaticon.woff?18674b194478435a574fdce3cdcbe7e0") format("woff"),
+url("./flaticon.woff2?18674b194478435a574fdce3cdcbe7e0") format("woff2"),
+url("./flaticon.eot?18674b194478435a574fdce3cdcbe7e0#iefix") format("embedded-opentype"),
+url("./flaticon.svg?18674b194478435a574fdce3cdcbe7e0#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon-map: (
+    "designer": "\f101",
+    "desk": "\f102",
+    "editing": "\f103",
+    "graphic-design": "\f104",
+    "laptop": "\f105",
+    "photography": "\f106",
+    "quote-left": "\f107",
+);
+
+.flaticon-designer:before {
+    content: map-get($flaticon-map, "designer");
+}
+.flaticon-desk:before {
+    content: map-get($flaticon-map, "desk");
+}
+.flaticon-editing:before {
+    content: map-get($flaticon-map, "editing");
+}
+.flaticon-graphic-design:before {
+    content: map-get($flaticon-map, "graphic-design");
+}
+.flaticon-laptop:before {
+    content: map-get($flaticon-map, "laptop");
+}
+.flaticon-photography:before {
+    content: map-get($flaticon-map, "photography");
+}
+.flaticon-quote-left:before {
+    content: map-get($flaticon-map, "quote-left");
+}
