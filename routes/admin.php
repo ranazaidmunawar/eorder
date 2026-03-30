@@ -59,7 +59,7 @@ Route::group(['middleware' => 'Demo'], function () {
     Route::group(['middleware' => 'checkpermission:Custom Domains'], function () {
         Route::get('/domains', [CustomDomainController::class, 'index'])->name('admin.custom-domain.index');
         Route::get('/domain/texts', [CustomDomainController::class, 'texts'])->name('admin.custom-domain.texts');
-        Route::post('/domain/texts', [CustomDomainController::class, 'updateTexts'])->name('admin.custom-domain.texts');
+        Route::post('/domain/texts', [CustomDomainController::class, 'updateTexts'])->name('admin.custom-domain.update_texts');
         Route::post('/domain/status', [CustomDomainController::class, 'status'])->name('admin.custom-domain.status');
         Route::post('/domain/mail', [CustomDomainController::class, 'mail'])->name('admin.custom-domain.mail');
         Route::post('/domain/delete', [CustomDomainController::class, 'delete'])->name('admin.custom-domain.delete');
@@ -76,10 +76,10 @@ Route::group(['middleware' => 'Demo'], function () {
     Route::group(['middleware' => 'checkpermission:Packages'], function () {
 
         Route::get('/package/settings', [PackageController::class, 'settings'])->name('admin.package.settings');
-        Route::post('/package/settings', [PackageController::class, 'updateSettings'])->name('admin.package.settings');
+        Route::post('/package/settings', [PackageController::class, 'updateSettings'])->name('admin.package.update_settings');
 
         Route::get('/package/features', [PackageController::class, 'features'])->name('admin.package.features');
-        Route::post('/package/features', [PackageController::class, 'updateFeatures'])->name('admin.package.features');
+        Route::post('/package/features', [PackageController::class, 'updateFeatures'])->name('admin.package.update_features');
 
         Route::get('packages', [PackageController::class, 'index'])->name('admin.package.index');
         Route::post('package/upload', [PackageController::class, 'upload'])->name('admin.package.upload');

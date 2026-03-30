@@ -32,7 +32,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-8 offset-lg-2">
-              <form id="permissionsForm" class="" action="{{route('admin.package.features')}}" method="post">
+              <form id="permissionsForm" class="" action="{{route('admin.package.update_features')}}" method="post">
                 @csrf
                 <div class="alert alert-warning">
                   {{__('Only these selected features will be visible in frontend Pricing Section')}}
