@@ -511,13 +511,15 @@ if (!function_exists('getUser')) {
         $parsedUrl = parse_url(url()->current());
 
         $host =  $parsedUrl['host'];
+        $websiteHost = trim(env('WEBSITE_HOST'));
 
 
         // if the current URL contains the website domain
-        if (str_contains($host, env('WEBSITE_HOST'))) {
+        if (str_contains($host, $websiteHost)) {
             $host = str_replace('www.', '', $host);
+            $username = '';
             // if current URL is a path based URL
-            if ($host == env('WEBSITE_HOST') && array_key_exists('path', $parsedUrl)) {
+            if ($host == $websiteHost && array_key_exists('path', $parsedUrl)) {
                 $path = explode('/', $parsedUrl['path']);
                 if (isset($path[1])) {
                     $username = $path[1];
@@ -529,10 +531,10 @@ if (!function_exists('getUser')) {
                 $username = $hostArr[0];
             }
 
-            if (($host == $username . '.' . env('WEBSITE_HOST')) || ($host . '/' == env('WEBSITE_HOST') . '/')) {
+            if (($host == $username . '.' . $websiteHost) || ($host . '/' == $websiteHost . '/')) {
                 \Illuminate\Support\Facades\Log::info('getUser: matching host', ['host' => $host, 'username' => $username]);
                 $user = User::query()
-                    ->where('username', $username)
+                    ->where('username', 'LIKE', $username)
                     ->where('online_status', 1)
                     ->where('status', 1)
                     ->whereHas('memberships', function ($q) {
@@ -547,7 +549,7 @@ if (!function_exists('getUser')) {
                 }
 
                 // if the current url is a subdomain
-                if ($host != env('WEBSITE_HOST')) {
+                if ($host != $websiteHost) {
                     if (!cPackageHasSubdomain($user)) {
                         return view('errors.404');
                     }
@@ -596,8 +598,9 @@ if (!function_exists('getParam')) {
 
         $parsedUrl = parse_url(url()->current());
         $host = str_replace("www.", "", $parsedUrl['host']);
+        $websiteHost = trim(env('WEBSITE_HOST'));
         // if it is path based URL, then return {username}
-        if (str_contains($host, env('WEBSITE_HOST')) && $host == env('WEBSITE_HOST')) {
+        if (str_contains($host, $websiteHost) && $host == $websiteHost) {
             $path = explode('/', $parsedUrl['path']);
             return $path[1];
         }
