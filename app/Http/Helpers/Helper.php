@@ -522,13 +522,13 @@ if (!function_exists('getUser')) {
             if ($host == $websiteHost && array_key_exists('path', $parsedUrl)) {
                 $path = explode('/', $parsedUrl['path']);
                 if (isset($path[1])) {
-                    $username = $path[1];
+                    $username = trim($path[1]);
                 }
             }
             // if the current URL is a subdomain
             else {
                 $hostArr = explode('.', $host);
-                $username = $hostArr[0];
+                $username = trim($hostArr[0]);
             }
 
             if (($host == $username . '.' . $websiteHost) || ($host . '/' == $websiteHost . '/')) {

@@ -168,8 +168,8 @@ $parsedUrl = parse_url(url()->current());
 $host = str_replace("www.", "", $parsedUrl['host']);
 $prefix = '';
 if (array_key_exists('host', $parsedUrl)) {
-
-    if ($host == env('WEBSITE_HOST')) {
+    $websiteHost = trim(env('WEBSITE_HOST'));
+    if ($host == $websiteHost) {
         $prefix = '/{username}';
     } else {
         if (!app()->runningInConsole()) {
