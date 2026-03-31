@@ -103,22 +103,19 @@ class FrontendController extends Controller
             ->where('user_id', $user->id)
             ->where('language_id', $currentLang->id)
             ->first();
-        $pwaData = json_decode($user->pwa, true);
-
-        if (in_array('Amazon AWS s3', $feature)) {
-
+        if (!empty($user->pwa)) {
             $pwaData = json_decode($user->pwa, true);
-            if ($pwaData) {
-                $pwaData['start_url'] = url()->current();
+            $pwaData['start_url'] = url()->current();
+            if (in_array('Amazon AWS s3', $feature)) {
                 foreach ($pwaData['icons'] as $key => $icon) {
                     $pwaData['icons'][$key]['src'] = $icon['src'];
                 }
-                file_put_contents(public_path('assets/pwa/manifest.json'), json_encode($pwaData));
             }
-        } else {
-            $pwaData['start_url'] = url()->current();
-
-            file_put_contents(public_path('assets/pwa/manifest.json'), json_encode($pwaData));
+            
+            $pwaPath = public_path('assets/pwa/manifest.json');
+            if (is_dir(public_path('assets/pwa'))) {
+                @file_put_contents($pwaPath, json_encode($pwaData));
+            }
         }
 
         $data['sliders'] = Slider::query()

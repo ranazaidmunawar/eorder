@@ -3,8 +3,18 @@
     {{ $keywords['Home'] ?? __('Home') }}
 @endsection
 @section('style')
-    @include('user-front.sushi.include.sushi_css')
+    @includeIf('user-front.sushi.include.sushi_css')
 @endsection
+<style>
+.toast-success, .toast-error, .toast-warning, .toast-info {
+    background: #0f5156 !important;
+    background-image: none !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+.toast-success::before, .toast-error::before, .toast-warning::before, .toast-info::before {
+    display: none !important;
+}
+</style>
 
 @section('content')
     <!-- Home-area start-->
@@ -22,5 +32,5 @@
 @endsection
 
 @section('script')
-    @include('user-front.sushi.include.sushi_js')
+    @includeIf('user-front.sushi.include.sushi_js')
 @endsection

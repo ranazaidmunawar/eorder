@@ -23,7 +23,7 @@ class PackageHasPermission
         if (!empty($user)) {
             $permissions = json_decode($permissions, true);
             if (!in_array($permission, $permissions)) {
-                session()->flash('error', 'Currently Not Available');
+                session()->flash('success', 'Currently Not Available');
                 return redirect()->route('user.front.index',getParam());
             }
         }

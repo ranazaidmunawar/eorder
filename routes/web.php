@@ -189,7 +189,7 @@ Route::group(['domain' => $domain, 'prefix' => $prefix, 'middleware' => ['userMa
     Route::get('/order/event', [UserFrontendController::class, 'orderEvent'])->name('orderEvent');
     Route::get('/change-language/{lang}/{type?}', [UserFrontendController::class, 'changeLanguage'])->name('user.front.change.language');
     Route::get('/offline', [UserFrontendController::class, 'offlinePWA']);
-    Route::group(['prefix' => 'customer', 'middleware' => ['packageHasPermission:Online Order', 'client.guest']], function () {
+    Route::group(['prefix' => 'customer', 'middleware' => ['client.guest']], function () {
         Route::get('/login', [ClientLoginController::class, 'showLoginForm'])->name('user.client.login');
         Route::post('/login', [ClientLoginController::class, 'login'])->name('user.client.login.submit')->withoutMiddleware('Demo');
 
@@ -202,6 +202,7 @@ Route::group(['domain' => $domain, 'prefix' => $prefix, 'middleware' => ['userMa
         Route::get('/register', [ClientRegisterController::class, 'registerPage'])->name('user.client.register');
         Route::post('/register/submit', [ClientRegisterController::class, 'register'])->name('user.client.register.submit');
         Route::get('/register/verify/{token}', [ClientRegisterController::class, 'token'])->name('user.client.register.token');
+        Route::get('/register/resend/{email}', [ClientRegisterController::class, 'resend'])->name('user.client.register.resend');
         Route::get('/forgot', [ForgotController::class, 'showForgotForm'])->name('user.client.forgot');
         Route::get('/password/create/form', [ForgotController::class, 'passwordCreateForm'])->name('client.create.password.form');
         Route::post('/forgot', [ForgotController::class, 'forgot'])->name('user.client.forgot.submit');
@@ -285,16 +286,17 @@ Route::group(['domain' => $domain, 'prefix' => $prefix, 'middleware' => ['userMa
     Route::get('/items', [ProductController::class, 'items'])->name('user.front.items');
     Route::get('/{slug}/{id}/item', [ProductController::class, 'productDetails'])->name('user.front.product.details');
 
-    Route::middleware('packageHasPermission:Online Order')->group(function () {
-        Route::get('/cart', [ProductController::class, 'cart'])->name('user.front.cart');
-        Route::get('/add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('user.front.add.cart');
-        Route::post('/cart/update', [ProductController::class, 'updateCart'])->name('user.front.cart.update');
-        Route::get('/cart/item/remove/{id}', [ProductController::class, 'cartItemRemove'])->name('user.front.cart.item.remove');
-        Route::get('/cart/item/add/quantity/{id}', [ProductController::class, 'cartItemAddQuantity'])->name('user.front.cart.item.add.quantity');
-        Route::get('/cart/item/less/quantity/{id}', [ProductController::class, 'cartItemLessQuantity'])->name('user.front.cart.item.less.quantity');
-        Route::get('/checkout', [ProductController::class, 'checkout'])->name('user.product.front.checkout');
-        Route::get('/checkout/{slug}', [ProductController::class, 'productCheckout'])->name('user.front.product.checkout');
+    Route::get('/cart', [ProductController::class, 'cart'])->name('user.front.cart');
+    Route::get('/add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('user.front.add.cart');
+    Route::post('/cart/update', [ProductController::class, 'updateCart'])->name('user.front.cart.update');
+    Route::get('/cart/item/remove/{id}', [ProductController::class, 'cartItemRemove'])->name('user.front.cart.item.remove');
+    Route::get('/cart/item/add/quantity/{id}', [ProductController::class, 'cartItemAddQuantity'])->name('user.front.cart.item.add.quantity');
+    Route::get('/cart/item/less/quantity/{id}', [ProductController::class, 'cartItemLessQuantity'])->name('user.front.cart.item.less.quantity');
 
+    Route::get('/checkout', [ProductController::class, 'checkout'])->name('user.product.front.checkout');
+    Route::get('/checkout/{slug}', [ProductController::class, 'productCheckout'])->name('user.front.product.checkout');
+
+    Route::middleware('packageHasPermission:Online Order')->group(function () {
         Route::post('product/review/submit', [ReviewController::class, 'reviewSubmit'])->name('user.product.review.submit');
     });
 
