@@ -18,8 +18,19 @@ class RegisterController extends Controller
 
     public function registerPage()
     {
+        $user = getUser();
+        $theme = strtolower($user->theme);
         
-        return view('user-front.client.register');
+        if ($theme == 'sushi' || $user->username == 'sushi') {
+            return view('user-front.sushi.register');
+        }
+
+        if (view()->exists('user-front.' . $theme . '.register')) {
+            $view = 'user-front.' . $theme . '.register';
+        } else {
+            $view = 'user-front.client.register';
+        }
+        return view($view);
     }
 
     public function register(Request $request)
@@ -106,5 +117,40 @@ class RegisterController extends Controller
             Session::flash('success', 'Email Verified Successfully');
             return redirect()->route('user.client.dashboard',getParam());
         }
+    }
+
+    public function resend(Request $request, $email)
+    {
+        $user = getUser();
+        $client = Client::where('email', $email)->where('user_id', $user->id)->first();
+        if (!$client) {
+            return back()->with('err', 'No account found with this email.');
+        }
+
+        if ($client->email_verified == 'Yes') {
+            return redirect()->route('user.client.login', getParam())->with('success', 'Email already verified. Please login.');
+        }
+
+        $currentLang = $this->getUserCurrentLanguage($user);
+        $bs = $currentLang->basic_setting;
+
+        $token = md5(time() . $client->username . $client->email);
+        $client->verification_link = $token;
+        $client->save();
+
+        $link = '<a href=' . route('user.client.register.token', [getParam(), 'token' => $token]) . '>Click Here</a>';
+        $mailer = new MegaMailer();
+        $data = [
+            'toMail' => $client->email,
+            'toName' => $client->username,
+            'username' => $client->username,
+            'verification_link' => $link,
+            'website_title' => $bs->website_title,
+            'templateType' => 'verify_email',
+            'type' => 'emailVerification'
+        ];
+        $mailer->mailFromUser($data, $user->id, $user);
+
+        return back()->with('success', 'Verification link sent successfully. Please check your email.');
     }
 }

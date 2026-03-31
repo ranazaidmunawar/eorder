@@ -91,9 +91,6 @@ class MegaMailer
         $be = $currentLang->basic_extended;
 
 
-        if (empty($be->smtp_host) || empty($be->smtp_port) || empty($be->encryption) || empty($be->smtp_username) || empty($be->smtp_password)) {
-            return back();
-        }
 
         if ($be->is_smtp == 1) {
             try {
@@ -142,9 +139,6 @@ class MegaMailer
     {
         $be = BasicExtended::query()->first();
 
-        if (empty($be->smtp_host) || empty($be->smtp_port) || empty($be->encryption) || empty($be->smtp_username) || empty($be->smtp_password)) {
-            return back();
-        }
 
         if ($be->is_smtp == 1) {
             try {
@@ -236,29 +230,26 @@ class MegaMailer
         $be = $currentLang->basic_extended;
 
 
-        if (empty($be->smtp_host) || empty($be->smtp_port) || empty($be->encryption) || empty($be->smtp_username) || empty($be->smtp_password)) {
-            return back();
-        }
+        $smtpHost = !empty($be->smtp_host) ? $be->smtp_host : env('SMTP_HOST');
+        $smtpPort = !empty($be->smtp_port) ? $be->smtp_port : env('SMTP_PORT');
+        $smtpEncryption = !empty($be->encryption) ? $be->encryption : 'tls';
+        $smtpUser = !empty($be->smtp_username) ? $be->smtp_username : env('SMTP_USER');
+        $smtpPass = !empty($be->smtp_password) ? $be->smtp_password : env('SMTP_PASS');
 
-        $userClang = $this->getUserCurrentLanguage($user);
-        $package = LimitCheckerHelper::currentMembershipPackage($user->id);
-        $packageArray = $package->toArray();
-        $userBs = $userClang->basic_setting;
-        $userBe = $userClang->basic_extended;
-
-        if ($be->is_smtp == 1) {
+        if ($be->is_smtp == 1 || (!empty($smtpHost) && !empty($smtpUser))) {
             try {
                 $smtp = [
                     'transport' => 'smtp',
-                    'host' => $be->smtp_host,
-                    'port' => $be->smtp_port,
-                    'encryption' => $be->encryption,
-                    'username' => $be->smtp_username,
-                    'password' => $be->smtp_password,
+                    'host' => $smtpHost,
+                    'port' => $smtpPort,
+                    'encryption' => $smtpEncryption,
+                    'username' => $smtpUser,
+                    'password' => $smtpPass,
                     'timeout' => null,
                     'auth_mode' => null,
                 ];
                 Config::set('mail.mailers.smtp', $smtp);
+                Config::set('mail.default', 'smtp');
             } catch (\Exception $e) {
                 dd($e);
             }
@@ -267,12 +258,12 @@ class MegaMailer
         try {
 
             Mail::send([], [], function (Message $message) use ($data, $body, $temp, $be, $userBs, $userBe, $packageArray) {
-                $fromMail = $be->from_mail;
-                $fromName = $userBe->from_name;
+                $fromMail = !empty($be->from_mail) ? $be->from_mail : env('SMTP_USER');
+                $fromName = !empty($userBe->from_name) ? $userBe->from_name : env('APP_NAME');
                 $message->to($data['toMail'])
                     ->subject($temp->mail_subject)
                     ->from($fromMail, $fromName)
-                    ->replyTo($userBe->from_mail, $userBe->from_name)
+                    ->replyTo(!empty($userBe->from_mail) ? $userBe->from_mail : $fromMail, !empty($userBe->from_name) ? $userBe->from_name : $fromName)
                     ->html($body, 'text/html');
 
                 if (array_key_exists('attachment', $data)) {

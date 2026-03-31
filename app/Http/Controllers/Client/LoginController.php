@@ -36,10 +36,19 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        if (str_contains(session()->get('link'), 'qr-menu')) {
-            session()->forget('link');
+        $user = getUser();
+        $theme = strtolower($user->theme);
+        
+        if ($theme == 'sushi' || $user->username == 'sushi') {
+            return view('user-front.sushi.login');
         }
-        return view('user-front.client.login');
+
+        if (view()->exists('user-front.' . $theme . '.login')) {
+            $view = 'user-front.' . $theme . '.login';
+        } else {
+            $view = 'user-front.client.login';
+        }
+        return view($view);
     }
 
     public function login(Request $request)
@@ -76,9 +85,13 @@ class LoginController extends Controller
 
             // Check If Email is verified or not
             if (Auth::guard('client')->user()->email_verified == 'no' || Auth::guard('client')->user()->email_verified == 'No') {
+                $email = Auth::guard('client')->user()->email;
                 Auth::guard('client')->logout();
 
-                return back()->with('err', __('Your Email is not Verified!'));
+                return back()->with([
+                    'err' => __('Your Email is not Verified!'),
+                    'resend_email' => $email
+                ]);
             }
             if (Auth::guard('client')->user()->status == '0') {
                 Auth::guard('client')->logout();

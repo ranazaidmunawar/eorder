@@ -21,7 +21,19 @@ class ForgotController extends Controller
 
     public function showForgotForm()
     {
-        return view('user-front.client.forgot');
+        $user = getUser();
+        $theme = strtolower($user->theme);
+        
+        if ($theme == 'sushi' || $user->username == 'sushi') {
+            return view('user-front.sushi.forgot');
+        }
+
+        if (view()->exists('user-front.' . $theme . '.forgot')) {
+            $view = 'user-front.' . $theme . '.forgot';
+        } else {
+            $view = 'user-front.client.forgot';
+        }
+        return view($view);
     }
 
     public function forgot(Request $request)
@@ -75,8 +87,19 @@ class ForgotController extends Controller
     }
     public function passwordCreateForm()
     {
+        $user = getUser();
+        $theme = strtolower($user->theme);
+        
+        if ($theme == 'sushi' || $user->username == 'sushi') {
+            return view('user-front.sushi.create_password_form');
+        }
 
-        return view('user-front.client.create_password_form');
+        if (view()->exists('user-front.' . $theme . '.create_password_form')) {
+            $view = 'user-front.' . $theme . '.create_password_form';
+        } else {
+            $view = 'user-front.client.create_password_form';
+        }
+        return view($view);
     }
     public function createNewPassword(Request $request)
     {

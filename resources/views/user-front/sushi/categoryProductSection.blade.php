@@ -88,29 +88,31 @@
 
                 <hr class="opacity-10 my-3">
 
-                <!-- Additions -->
-                <div class="mb-5 text-end">
-                    <h6 class="fw-bold mb-3">Additions</h6>
+                <!-- Variations (Dynamic) -->
+                <div id="variationsContainer" class="mb-4 text-end">
+                    <!-- Dynamic Variations will be injected here -->
+                </div>
+
+                <!-- Additions (Addons) -->
+                <div id="addonsContainer" class="mb-5 text-end">
+                    <h6 class="fw-bold mb-3">{{ $keywords['Addons'] ?? __('Addons') }}</h6>
                     <div class="d-flex flex-wrap justify-content-end gap-2">
-                        <span class="addition-pill">( ₪ 4.00+ ) Kibbeh</span>
-                        <span class="addition-pill">( ₪ 4.00+ ) cheese</span>
-                        <span class="addition-pill">( ₪ 4.00+ ) Zinger</span>
-                        <span class="addition-pill">( ₪ 2.00+ ) Onion rings</span>
+                        <!-- Dynamic Addons will be injected here -->
                     </div>
                 </div>
             </div>
 
             <!-- Sticky Footer for Modal -->
             <div class="modal-sticky-footer">
-                <button class="modal-add-btn shadow-sm" onclick="addToCart()">
-                    <span id="modalTotalBtn" class="fs-6">24.00</span>
-                    <span>Add to cart</span>
+                <button class="modal-add-btn shadow-sm" onclick="sushiAddToCart()">
+                    <span id="modalTotalBtn" class="fs-6">0.00</span>
+                    <span>{{ $keywords['Add to Cart'] ?? __('Add to Cart') }}</span>
                 </button>
 
                 <div class="modal-qty-control shadow-sm">
-                    <button class="modal-qty-btn" onclick="updateQty(1)"><i class="fas fa-plus"></i></button>
+                    <button class="modal-qty-btn" onclick="sushiUpdateQty(1)"><i class="fas fa-plus"></i></button>
                     <input type="text" id="qtyInput" class="modal-qty-val" value="1" readonly>
-                    <button class="modal-qty-btn" onclick="updateQty(-1)"><i class="fas fa-minus"></i></button>
+                    <button class="modal-qty-btn" onclick="sushiUpdateQty(-1)"><i class="fas fa-minus"></i></button>
                 </div>
             </div>
 
@@ -118,238 +120,171 @@
     </div>
 </div>
 
-
-
-   <!-- Product-area start -->
-   <section class="product-area product-2 pt-100 pb-75">
-       <div class="container">
-           <div class="row">
-               <div class="col-12">
-                   <div class="tab-content" data-aos="fade-up">
-                       <!-- @foreach ($categories as $keys => $category)
-                           <div class="tab-pane slide {{ $keys == 0 ? 'show active' : '' }}" id="{{ $category->slug }}">
-                               <div class="tabs-navigation text-center mb-50">
-                                   <ul class="nav nav-tabs" data-hover="fancyHover">
-                                       @foreach ($category->subcategories()->where('is_feature', 1)->get() as $subkeys => $subcat)
-                                           <li class="nav-item {{ $subkeys == 0 ? 'active' : '' }}">
-                                               <button
-                                                   class="nav-link hover-effect {{ $subkeys == 0 ? 'active' : '' }} btn-md rounded-pill"
-                                                   data-bs-toggle="tab" data-bs-target="#sub_{{ $subcat->id }}"
-                                                   type="button">{{ convertUtf8($subcat->name) }}
-                                               </button>
-                                           </li>
-                                       @endforeach
-
-                                   </ul>
-                               </div>
-                               <div class="tab-content">
-                                   @foreach ($category->subcategories()->where('is_feature', 1)->get() as $subkeys => $subcat)
-                                       <div class="tab-pane slide {{ $subkeys == 0 ? 'show active' : '' }}"
-                                           id="sub_{{ $subcat->id }}">
-                                           <div class="row">
-                                               @php
-                                                   $featureActiveProducts = Product::query()
-                                                       ->join('product_informations', 'product_informations.product_id', 'products.id')
-                                                       ->where('product_informations.category_id', $category->id)
-                                                       ->where('product_informations.subcategory_id', $subcat->id)
-                                                       ->where('products.is_feature', 1)
-                                                       ->where('products.user_id', $user->id)
-                                                       ->where('products.status', 1)
-                                                       ->get();
-                                               @endphp
-
-                                               @foreach ($featureActiveProducts as $product)
-                                                   <div class="col-md-6 col-lg-4 col-xl-3 item">
-                                                       <div class="product radius-md text-center p-30 mb-25">
-                                                           <figure class="product-img mb-20 mx-auto">
-                                                               <a href="{{ route('user.front.product.details', [getParam(), $product->slug, $product->product_id]) }}"
-                                                                   target="_self"
-                                                                   title="{{ convertUtf8($product->title) }}"
-                                                                   class="lazy-container ratio ratio-1-1 bg-none">
-                                                                   <img class="lazyload"
-                                                                       data-src="{{ Uploader::getImageUrl(Constant::WEBSITE_PRODUCT_FEATURED_IMAGE, $product->feature_image, $userBs) }}"
-                                                                       alt="Image">
-                                                               </a>
-                                                               <div class="hover-show">
-                                                                @if (in_array('Online Order', $packagePermissions))
-                                                                   <a href="{{ route('user.front.product.details', [getParam(), $product->slug, $product->product_id]) }}"
-                                                                       class="cart-link btn btn-md btn-outline rounded-pill"
-                                                                       title="{{ $keywords['Add to Cart'] ??  __('Add to Cart') }}" target="_self"
-                                                                       data-product="{{ $product }}"
-                                                                       data-href="{{ route('user.front.add.cart', [getParam(), $product->product_id]) }}">{{ $keywords['Add to Cart'] ??  __('Add to Cart')  }}</a>
-                                                                       @else
-                                                                       @if (!empty(json_decode($product->addons, true)) || !empty(json_decode($product->variations, true)))
-                                                                        <a href="{{ route('user.front.product.details', [getParam(), $product->slug, $product->product_id]) }}"
-                                                                       class="cart-link btn btn-md btn-outline rounded-pill"
-                                                                       title="{{ $keywords['Extras'] ??  __('Extras') }}" target="_self"
-                                                                       data-product="{{ $product }}"
-                                                                       data-href="{{ route('user.front.add.cart', [getParam(), $product->product_id]) }}">{{ $keywords['Extras'] ??  __('Extras')  }}</a>
-                                                                       @endif
-                                                                       @endif
-                                                               </div>
-                                                           </figure>
-                                                           <div class="product-details">
-                                                               <h4 class="product-title lc-1 mb-1"><a
-                                                                       href="{{ route('user.front.product.details', [getParam(), $product->slug, $product->product_id]) }}"
-                                                                       target="_self"
-                                                                       title="{{ convertUtf8($product->title) }}">{{ convertUtf8($product->title) }}</a>
-                                                               </h4>
-                                                               <div class="ratings justify-content-center mb-10">
-                                                                   <div class="rate">
-                                                                       <div class="rating-icon"
-                                                                           style="width:{{ $product->rating ? $product->rating * 20 : 0 }}% !important">
-                                                                       </div>
-                                                                   </div>
-                                                                   <span
-                                                                       class="ratings-total">({{ $product->rating }})</span>
-                                                               </div>
-                                                               <div class="product-price">
-                                                                   <span class="h6 font-lg new-price color-primary"
-                                                                       dir="ltr">{{ $userBe->base_currency_symbol_position == 'left' ? $userBe->base_currency_symbol : '' }}{{ convertUtf8($product->current_price) }}{{ $userBe->base_currency_symbol_position == 'right' ? $userBe->base_currency_symbol : '' }}</span>
-                                                                   @if ($product->previous_price)
-                                                                       <span class="prev-price font-sm" dir="ltr">
-                                                                           {{ $userBe->base_currency_symbol_position == 'left' ? $userBe->base_currency_symbol : '' }}{{ convertUtf8($product->previous_price) }}{{ $userBe->base_currency_symbol_position == 'right' ? $userBe->base_currency_symbol : '' }}</span>
-                                                                   @endif
-                                                               </div>
-                                                           </div>
-                                                       </div>
-                                                   </div>
-                                               @endforeach
-
-                                           </div>
-                                       </div>
-                                   @endforeach
-                               </div>
-                               <div class="cta-btn text-center mt-15 mb-25">
-                                   <a href="{{ route('user.front.items', [getParam(), 'category_id' => $category->id]) }}"
-                                       class="btn btn-lg btn-primary rounded-pill" title="{{ $keywords['View All Items'] ??  __('View All Items') }}"
-                                       target="_self">{{ $keywords['View All Items'] ??  __('View All Items') }}</a>
-                               </div>
-                           </div>
-                       @endforeach -->
-                   </div>
-               </div>
-           </div>
-       </div>
-   </section>
-   <!-- Product-area end -->
-
 <script>
+    let currentProduct = null;
     let currentProductBasePrice = 0;
     let selectedAddonsTotal = 0;
+    let selectedVariationsTotal = 0;
     let currentQty = 1;
+    let selectedVariations = {};
+    let selectedAddons = [];
     let currencySymbol = "{{ $userBe->base_currency_symbol }}";
     let currencyPos = "{{ $userBe->base_currency_symbol_position }}";
 
     function openProductModal(product) {
-        console.log("Opening Modal for:", product);
-        
-        // Handle stringified JSON if needed
         if (typeof product === 'string') {
             product = JSON.parse(product);
         }
-
-        // Get main product data (since we joined in the model or access via relation)
-        const baseProduct = product.product || product; 
+        currentProduct = product.product || product; 
         
-        currentProductBasePrice = parseFloat(baseProduct.current_price || 0);
+        currentProductBasePrice = parseFloat(currentProduct.current_price || 0);
         selectedAddonsTotal = 0;
+        selectedVariationsTotal = 0;
         currentQty = 1;
+        selectedVariations = {};
+        selectedAddons = [];
 
         // Update UI
         document.getElementById('modalTitle').innerText = product.title || product.name;
         document.getElementById('modalDesc').innerText = product.summary || product.description || '';
         
-        // Set Image URL
-        const imgUrl = "{{ Uploader::getImageUrl(Constant::WEBSITE_PRODUCT_FEATURED_IMAGE, ':img', $userBs) }}".replace(':img', baseProduct.feature_image);
+        const imgUrl = "{{ Uploader::getImageUrl(Constant::WEBSITE_PRODUCT_FEATURED_IMAGE, ':img', $userBs) }}".replace(':img', currentProduct.feature_image);
         document.getElementById('modalImg').src = imgUrl;
-
-        // Reset Qty
         document.getElementById('qtyInput').value = currentQty;
 
-        // Reset Fav Heart
-        const favIcon = document.querySelector('.modal-fav-btn i');
-        favIcon.className = 'far fa-heart';
-        favIcon.classList.remove('text-danger');
-
-        // Render Additions (Addons)
-        const additionsContainer = document.querySelector('.modal-additions-section .d-flex');
-        additionsContainer.innerHTML = '';
-        
-        if (baseProduct.addons) {
+        // Render Variations
+        const varContainer = document.getElementById('variationsContainer');
+        varContainer.innerHTML = '';
+        if (currentProduct.variations) {
             try {
-                const addons = JSON.parse(baseProduct.addons);
-                for (const [name, price] of Object.entries(addons)) {
-                    const pill = document.createElement('span');
-                    pill.className = 'addition-pill';
-                    pill.innerHTML = `( ${currencyPos == 'left' ? currencySymbol : ''}${price}${currencyPos == 'right' ? currencySymbol : ''}+ ) ${name}`;
-                    pill.onclick = function() {
-                        this.classList.toggle('active');
-                        if (this.classList.contains('active')) {
-                            selectedAddonsTotal += parseFloat(price);
-                        } else {
-                            selectedAddonsTotal -= parseFloat(price);
-                        }
-                        calculateTotal();
-                    };
-                    additionsContainer.appendChild(pill);
+                const variations = JSON.parse(currentProduct.variations);
+                for (const [vName, vOptions] of Object.entries(variations)) {
+                    const section = document.createElement('div');
+                    section.className = 'mb-3';
+                    section.innerHTML = `<h6 class="fw-bold mb-2">${vName.replace(/_/g, ' ')}</h6>`;
+                    
+                    const optionsDiv = document.createElement('div');
+                    optionsDiv.className = 'd-flex flex-wrap justify-content-end gap-2';
+                    
+                    vOptions.forEach(opt => {
+                        const pill = document.createElement('span');
+                        pill.className = 'addition-pill';
+                        pill.innerHTML = `${opt.name} (${currencyPos == 'left' ? currencySymbol : ''}${opt.price}${currencyPos == 'right' ? currencySymbol : ''})`;
+                        pill.onclick = function() {
+                            // Clear previous selection for this variation
+                            optionsDiv.querySelectorAll('.addition-pill').forEach(p => p.classList.remove('active'));
+                            this.classList.add('active');
+                            
+                            selectedVariations[vName] = { name: opt.name, price: opt.price };
+                            sushiCalculateVariationTotal();
+                        };
+                        optionsDiv.appendChild(pill);
+                    });
+                    section.appendChild(optionsDiv);
+                    varContainer.appendChild(section);
                 }
-            } catch (e) {
-                console.error("Error parsing addons:", e);
-            }
+            } catch (e) { console.error("Variations error:", e); }
         }
 
-        calculateTotal();
+        // Render Addons
+        const additionsContainer = document.querySelector('#addonsContainer .d-flex');
+        additionsContainer.innerHTML = '';
+        if (currentProduct.addons) {
+            try {
+                const addons = JSON.parse(currentProduct.addons);
+                addons.forEach(addon => {
+                    const pill = document.createElement('span');
+                    pill.className = 'addition-pill';
+                    pill.innerHTML = `${addon.name} (+${currencyPos == 'left' ? currencySymbol : ''}${addon.price}${currencyPos == 'right' ? currencySymbol : ''})`;
+                    pill.onclick = function() {
+                        this.classList.toggle('active');
+                        const price = parseFloat(addon.price);
+                        if (this.classList.contains('active')) {
+                            selectedAddons.push({name: addon.name, price: addon.price});
+                            selectedAddonsTotal += price;
+                        } else {
+                            selectedAddons = selectedAddons.filter(a => a.name !== addon.name);
+                            selectedAddonsTotal -= price;
+                        }
+                        sushiCalculateTotal();
+                    };
+                    additionsContainer.appendChild(pill);
+                });
+            } catch (e) { console.error("Addons error:", e); }
+        }
 
-        // Show Modal
+        sushiCalculateTotal();
+        
         if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-            var myModal = new bootstrap.Modal(document.getElementById('productModal'));
-            myModal.show();
+            new bootstrap.Modal(document.getElementById('productModal')).show();
         } else {
-            // Fallback for jQuery / Bootstrap 4
             $('#productModal').modal('show');
         }
     }
 
-    // Manual Close Fix
-    document.querySelector('.modal-close-btn').addEventListener('click', function() {
-        if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-            var modal = bootstrap.Modal.getInstance(document.getElementById('productModal'));
-            if (modal) modal.hide();
+    function sushiCalculateVariationTotal() {
+        selectedVariationsTotal = 0;
+        for (const v in selectedVariations) {
+            selectedVariationsTotal += parseFloat(selectedVariations[v].price);
         }
-        $('#productModal').modal('hide');
-    });
+        sushiCalculateTotal();
+    }
 
-    // Favorite Toggle Logic
-    document.querySelector('.modal-fav-btn').addEventListener('click', function() {
-        const icon = this.querySelector('i');
-        icon.classList.toggle('far');
-        icon.classList.toggle('fas');
-        icon.classList.toggle('text-danger');
-        
-        if (icon.classList.contains('fas')) {
-            toastr["success"]("Added to favorites!");
-        }
-    });
-
-    function updateQty(delta) {
+    function sushiUpdateQty(delta) {
         currentQty += delta;
         if (currentQty < 1) currentQty = 1;
         document.getElementById('qtyInput').value = currentQty;
-        calculateTotal();
+        sushiCalculateTotal();
     }
 
-    function calculateTotal() {
-        const total = (currentProductBasePrice + selectedAddonsTotal) * currentQty;
+    function sushiCalculateTotal() {
+        const total = (currentProductBasePrice + selectedAddonsTotal + selectedVariationsTotal) * currentQty;
         const formattedTotal = (currencyPos == 'left' ? currencySymbol : '') + total.toFixed(2) + (currencyPos == 'right' ? currencySymbol : '');
         document.getElementById('modalTotalBtn').innerText = formattedTotal;
     }
 
-    function addToCart() {
-        // Logic to send data to backend or cart logic
-        toastr["success"]("Added to cart!");
-        var myModalEl = document.getElementById('productModal');
-        var modal = bootstrap.Modal.getInstance(myModalEl);
-        modal.hide();
+    function sushiAddToCart() {
+        if (!currentProduct) return;
+
+        // Validation for variations (ensure all are selected)
+        if (currentProduct.variations) {
+            const variations = JSON.parse(currentProduct.variations);
+            for (const vName in variations) {
+                if (!selectedVariations[vName]) {
+                    toastr["warning"]("Please select " + vName.replace(/_/g, ' '));
+                    return;
+                }
+            }
+        }
+
+        const total = (currentProductBasePrice + selectedAddonsTotal + selectedVariationsTotal) * currentQty;
+        const variationsStr = JSON.stringify(selectedVariations);
+        const addonsStr = JSON.stringify(selectedAddons);
+        
+        // Construct the multi-parameter ID
+        const cartKey = `${currentProduct.id},,,${currentQty},,,${total},,,${variationsStr},,,${addonsStr}`;
+        const url = "{{ route('user.front.add.cart', [getParam(), ':id']) }}".replace(':id', cartKey);
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    toastr["error"](data.error);
+                } else {
+                    toastr["success"](data.message);
+                    // Hide Modal
+                    const modalEl = document.getElementById('productModal');
+                    const modal = bootstrap.Modal.getInstance(modalEl) || $(modalEl).data('bs.modal');
+                    if (modal && modal.hide) modal.hide(); else $(modalEl).modal('hide');
+                    
+                    // Refresh cart count
+                    location.reload(); 
+                }
+            })
+            .catch(err => {
+                console.error("Cart error:", err);
+                toastr["error"]("Failed to add to cart");
+            });
     }
+</script>
 </script>

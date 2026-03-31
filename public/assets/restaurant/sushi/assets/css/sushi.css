@@ -12,6 +12,23 @@
 /* -----------------------------------------
     Reset CSS
 ----------------------------------------- */
+.toast-message,
+.toast-success,
+.toast-error,
+.toast-warning,
+.toast-info {
+    background: #0f5156 !important;
+    background-image: none !important;
+    padding: 15px 15px 15px 15px !important;
+}
+
+.toast-success::before,
+.toast-error::before,
+.toast-warning::before,
+.toast-info::before {
+    display: none !important;
+}
+
 :focus {
     outline: none;
 }
