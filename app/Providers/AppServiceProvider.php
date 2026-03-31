@@ -75,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
                     $view->with('userLangs', $allLanguageInfos);
                     $view->with('languages', $allLanguageInfos);
                     $upageHeading = \App\Models\User\PageHeading::where('user_id', $user->id)->where('language_id', $currentLang->id)->first();
-                    $userSeo = \App\Models\User\Seo::where('user_id', $user->id)->where('language_id', $currentLang->id)->first();
+                    $userSeo = \App\Models\User\SEO::where('user_id', $user->id)->where('language_id', $currentLang->id)->first();
                     $view->with('upageHeading', $upageHeading);
                     $view->with('userSeo', $userSeo);
                     $view->with('permissions', $permissions);

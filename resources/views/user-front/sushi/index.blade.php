@@ -3,7 +3,7 @@
     {{ $keywords['Home'] ?? __('Home') }}
 @endsection
 @section('style')
-    @include('user-front.sushi.include.sushi_css')
+    @includeIf('user-front.sushi.include.sushi_css')
 @endsection
 
 @section('content')
@@ -22,5 +22,5 @@
 @endsection
 
 @section('script')
-    @include('user-front.sushi.include.sushi_js')
+    @includeIf('user-front.sushi.include.sushi_js')
 @endsection

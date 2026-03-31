@@ -49,7 +49,7 @@ class RedirectIfOwnerPackageExpired
         $socialMediaInfos = \App\Models\User\Social::where('user_id', $user->id)->orderBy('serial_number', 'ASC')->get();
         $apopups = \App\Models\User\Popup::where('user_id', $user->id)->where('language_id', $currentLang->id)->where('status', 1)->get();
         $upageHeading = \App\Models\User\PageHeading::where('user_id', $user->id)->where('language_id', $currentLang->id)->first();
-        $userSeo = \App\Models\User\Seo::where('user_id', $user->id)->where('language_id', $currentLang->id)->first();
+        $userSeo = \App\Models\User\SEO::where('user_id', $user->id)->where('language_id', $currentLang->id)->first();
 
         \Illuminate\Support\Facades\View::share('user', $user);
         \Illuminate\Support\Facades\View::share('userCurrentLang', $currentLang);
