@@ -1,10 +1,10 @@
 <?php 
 
     return [
-        'item_name' => "Eorder",
-        "item_id" => 50718143,
-        "vension" => 4.0,
-        "released_on" => "16th Nov, 2025",
+        'item_name' => "Superv",
+        "item_id" => 28396210,
+        "vension" => 2.2,
+        "released_on" => "30th May, 2023",
         "broadcast_driver" => "pusher",
         "email_api" => 'https://kreativdev.com/emailcollector/api/collect'
     ];

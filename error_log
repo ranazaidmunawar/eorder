@@ -1,0 +1,6 @@
+[30-Mar-2026 11:12:06 UTC] PHP Warning:  require(/home/omnivsre/test.thetime-calculator.com/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/omnivsre/test.thetime-calculator.com/public/index.php on line 24
+[30-Mar-2026 11:12:06 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/omnivsre/test.thetime-calculator.com/public/../vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/omnivsre/test.thetime-calculator.com/public/index.php:24
+Stack trace:
+#0 /home/omnivsre/test.thetime-calculator.com/server.php(21): require_once()
+#1 {main}
+  thrown in /home/omnivsre/test.thetime-calculator.com/public/index.php on line 24
