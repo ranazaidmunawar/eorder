@@ -20,9 +20,13 @@ class RegisterController extends Controller
     {
         $user = getUser();
         $theme = strtolower($user->theme);
+
+        $currentLang = $this->getUserCurrentLanguage($user);
+        $userBs = \App\Models\User\BasicSetting::where('user_id', $user->id)->where('language_id', $currentLang->id)->first();
+        $data['userBs'] = $userBs;
         
         if ($theme == 'sushi' || $user->username == 'sushi') {
-            return view('user-front.sushi.register');
+            return view('user-front.sushi.register', $data);
         }
 
         if (view()->exists('user-front.' . $theme . '.register')) {
@@ -30,7 +34,7 @@ class RegisterController extends Controller
         } else {
             $view = 'user-front.client.register';
         }
-        return view($view);
+        return view($view, $data);
     }
 
     public function register(Request $request)

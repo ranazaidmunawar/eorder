@@ -221,11 +221,17 @@ class MegaMailer
             $body = preg_replace("/{website_title}/", $data['website_title'], $body);
         }
 
-        if (session()->has('lang')) {
-            $currentLang = Language::query()->where('code', session()->get('lang'))->first();
+        if (session()->has('user_lang')) {
+            $currentLang = Language::query()->where('code', session()->get('user_lang'))->first();
         } else {
             $currentLang = Language::query()->where('is_default', 1)->first();
         }
+
+        $userClang = $this->getUserCurrentLanguage($user);
+        $userBs = \App\Models\User\BasicSetting::where('user_id', $user->id)->where('language_id', $userClang->id)->first();
+        $userBe = \App\Models\User\BasicExtended::where('user_id', $user->id)->where('language_id', $userClang->id)->first();
+        $packageArray = \App\Http\Helpers\UserPermissionHelper::packagePermission($user->id);
+        $packageArray = json_decode($packageArray, true);
 
         $be = $currentLang->basic_extended;
 
