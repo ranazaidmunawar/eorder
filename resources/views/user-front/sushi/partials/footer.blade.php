@@ -16,7 +16,7 @@
     $total = cartTotal();
 @endphp
 
-@if($cartCount > 0)
+@if($cartCount > 0 && !request()->routeIs('user.product.front.checkout') && !request()->routeIs('user.front.product.checkout'))
 <a href="{{ route('user.front.cart', getParam()) }}" id="sticky-cart" class="bottom-cart-bar decoration-none">
     <div class="d-flex align-items-center justify-content-between w-100">
         <div class="d-flex flex-column text-start">

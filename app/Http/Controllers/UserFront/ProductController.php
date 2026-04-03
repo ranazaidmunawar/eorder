@@ -592,7 +592,7 @@ class ProductController extends Controller
                     $couponAmount = ($cartTotal * $value) / 100;
                 }
                 session()->put('coupon', round($couponAmount, 2));
-                return response()->json(['status' => 'success', 'message' => $keywords['Coupon applied successfully'] ?? "Coupon applied successfully"]);
+                return response()->json(['status' => 'success', 'message' => $keywords['Coupon applied successfully'] ?? "Coupon applied successfully", 'amount' => round($couponAmount, 2)]);
             } else {
                 return response()->json(['status' => 'error', 'message' => $keywords['Coupon is not valid'] ?? "Coupon is not valid"]);
             }

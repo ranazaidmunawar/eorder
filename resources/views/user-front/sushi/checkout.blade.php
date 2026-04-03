@@ -223,9 +223,9 @@
     .section-header { text-align: right; font-weight: 800; font-size: 0.85rem; color: #333; margin-bottom: 12px; }
 </style>
 
-<div class="container py-3 cart-page-container">
+<div class="container py-7 cart-page-container">
     <!-- Header -->
-    <div class="position-relative mb-4 text-center">
+    <div class="position-relative mb-4 text-center pt-5">
         <h4 class="fw-bold mb-0">Complete the order</h4>
         <a href="{{ route('user.front.cart', getParam()) }}" class="d-flex align-items-center justify-content-center position-absolute"
            style="width: 38px; height: 38px; border-radius: 50%; background: var(--color-primary); top: 50%; right: 0; transform: translateY(-50%);">
@@ -383,7 +383,7 @@
             <div class="checkout-toggle-item p-category-toggle" onclick="togglePaymentGroup('offline', this)">Cash on Delivery</div>
         </div>
 
-        <div id="payment-gateways-container" class="mb-5">
+        <div id="payment-gateways-container" class="mb-10">
             <h6 class="section-header text-muted">Pay Via</h6>
             
             <!-- Online Gateways -->
@@ -497,15 +497,15 @@
         let code = $('#coupon_code').val();
         if(!code) return;
         
-        $.get("{{ route('user.front.coupon', getParam()) }}", { coupon: code }, function(res) {
+        $.post("{{ route('user.front.coupon', getParam()) }}", { coupon: code, _token: "{{ csrf_token() }}" }, function(res) {
             if(res.status === 'success') {
                 currentDiscount = parseFloat(res.amount);
                 $('#discount-val').text(currentDiscount.toFixed(2));
                 $('#discount-row').show();
                 calcFinal();
-                toastr.success("Coupon applied!");
+                toastr.success(res.message || "Coupon applied!");
             } else {
-                toastr.error(res.message);
+                toastr.error(res.message || "Invalid coupon");
             }
         });
     }
