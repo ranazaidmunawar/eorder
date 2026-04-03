@@ -8039,7 +8039,6 @@ return array(
     'RachidLaasri\\LaravelInstaller\\Controllers\\DatabaseController' => $vendorDir . '/rachidlaasri/laravel-installer/src/Controllers/DatabaseController.php',
     'RachidLaasri\\LaravelInstaller\\Controllers\\EnvironmentController' => $vendorDir . '/rachidlaasri/laravel-installer/src/Controllers/EnvironmentController.php',
     'RachidLaasri\\LaravelInstaller\\Controllers\\FinalController' => $vendorDir . '/rachidlaasri/laravel-installer/src/Controllers/FinalController.php',
-    'RachidLaasri\\LaravelInstaller\\Controllers\\LicenseController' => $vendorDir . '/rachidlaasri/laravel-installer/src/Controllers/LicenseController.php',
     'RachidLaasri\\LaravelInstaller\\Controllers\\PermissionsController' => $vendorDir . '/rachidlaasri/laravel-installer/src/Controllers/PermissionsController.php',
     'RachidLaasri\\LaravelInstaller\\Controllers\\RequirementsController' => $vendorDir . '/rachidlaasri/laravel-installer/src/Controllers/RequirementsController.php',
     'RachidLaasri\\LaravelInstaller\\Controllers\\UpdateController' => $vendorDir . '/rachidlaasri/laravel-installer/src/Controllers/UpdateController.php',
