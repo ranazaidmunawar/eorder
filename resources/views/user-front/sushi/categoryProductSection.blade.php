@@ -104,9 +104,9 @@
 
             <!-- Sticky Footer for Modal -->
             <div class="modal-sticky-footer">
-                <button class="modal-add-btn shadow-sm" onclick="sushiAddToCart()">
+                <button id="sushiAddToCartBtn" class="modal-add-btn shadow-sm" onclick="sushiAddToCart()">
                     <span id="modalTotalBtn" class="fs-6">0.00</span>
-                    <span>{{ $keywords['Add to Cart'] ?? __('Add to Cart') }}</span>
+                    <span id="addToCartText">{{ $keywords['Add to Cart'] ?? __('Add to Cart') }}</span>
                 </button>
 
                 <div class="modal-qty-control shadow-sm">
@@ -246,6 +246,10 @@
     function sushiAddToCart() {
         if (!currentProduct) return;
 
+        const btn = document.getElementById('sushiAddToCartBtn');
+        const btnText = document.getElementById('addToCartText');
+        const originalText = btnText.innerText;
+
         // Validation for variations (ensure all are selected)
         if (currentProduct.variations) {
             const variations = JSON.parse(currentProduct.variations);
@@ -265,17 +269,35 @@
         const cartKey = `${currentProduct.id},,,${currentQty},,,${total},,,${variationsStr},,,${addonsStr}`;
         const url = "{{ route('user.front.add.cart', [getParam(), ':id']) }}".replace(':id', cartKey);
 
+        if (btn) {
+            btn.disabled = true;
+            btnText.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        }
+
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
                     toastr["error"](data.error);
+                    if (btn) {
+                        btn.disabled = false;
+                        btnText.innerText = originalText;
+                    }
                 } else {
                     toastr["success"](data.message);
-                    // Hide Modal
-                    const modalEl = document.getElementById('productModal');
-                    const modal = bootstrap.Modal.getInstance(modalEl) || $(modalEl).data('bs.modal');
-                    if (modal && modal.hide) modal.hide(); else $(modalEl).modal('hide');
+                    
+                    // Hide Modal Safely
+                    try {
+                        const modalEl = document.getElementById('productModal');
+                        if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                            const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                            if (modal) modal.hide();
+                        } else {
+                            $('#productModal').modal('hide');
+                        }
+                    } catch (err) {
+                        console.error("Modal hiding error:", err);
+                    }
                     
                     // Refresh cart count
                     location.reload(); 
@@ -284,7 +306,10 @@
             .catch(err => {
                 console.error("Cart error:", err);
                 toastr["error"]("Failed to add to cart");
+                if (btn) {
+                    btn.disabled = false;
+                    btnText.innerText = originalText;
+                }
             });
     }
-</script>
 </script>
