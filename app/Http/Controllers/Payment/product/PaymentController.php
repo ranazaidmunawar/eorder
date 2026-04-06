@@ -111,6 +111,7 @@ class PaymentController extends Controller
 
     public function orderValidation($request)
     {
+       
         $user = getUser();
 
         $count = LimitCheckerHelper::orderCount($user->id);
@@ -134,7 +135,6 @@ class PaymentController extends Controller
         if (!Session::has($user->username . '_cart')) {
             return back()->with('error', 'No item added to cart!')->withInput($request->all());
         }
-
         $timezone = $be->timezone ?? config('app.timezone');
         $now = Carbon::now($timezone);
         $todaysDay = strtolower($now->format('l'));
@@ -143,26 +143,23 @@ class PaymentController extends Controller
         // Set  time zone 
         // $timezone = $be->timezone;
         $now->setTimezone($timezone);
-
+//  dd($request->all());
+// 
         // search in the database by today's day & retrieve start & end time
         $orderTime = OrderTime::query()
             ->where('user_id', $user->id)
             ->where('day', $todaysDay)
             ->first();
             
-        if (!$orderTime || empty($orderTime->start_time) || empty($orderTime->end_time)) {
-            return back()->with('error', "We are closed on " . $todaysDay)->withInput($request->all());
-        }
+        if ($orderTime && !empty($orderTime->start_time) && !empty($orderTime->end_time)) {
+            $start = Carbon::parse($orderTime->start_time, $timezone)->timestamp;
+            $end = Carbon::parse($orderTime->end_time, $timezone)->timestamp;
 
-        $start = Carbon::parse($orderTime->start_time, $timezone)->timestamp;
-        $end = Carbon::parse($orderTime->end_time, $timezone)->timestamp;
-
-        // check if current time is not between retrieved start & end time,
-        // then show the message 'shop is closed now'
-        if ($currentTime < $start || $currentTime > $end) {
-            return back()
-                ->with('error', "We take orders from " . $orderTime->start_time . " to " . $orderTime->end_time . " on " . $todaysDay)
-                ->withInput($request->all());
+            if ($currentTime < $start || $currentTime > $end) {
+                return back()
+                    ->with('error', "We take orders from " . $orderTime->start_time . " to " . $orderTime->end_time . " on " . $todaysDay)
+                    ->withInput($request->all());
+            }
         }
 
         $messages = [
@@ -183,16 +180,16 @@ class PaymentController extends Controller
             'serving_method' => 'required|sometimes',
             'shipping_fname' => 'required|sometimes',
             'shipping_lname' => 'required|sometimes',
-            'shipping_address' => 'required|sometimes',
+            // 'shipping_address' => 'required|sometimes',
             'shipping_city' => 'required|sometimes',
             'shipping_country' => 'required|sometimes',
             'shipping_country_code' => 'required|sometimes',
             'shipping_number' => 'required|sometimes',
             'shipping_email' => 'required|sometimes',
-            'pick_up_date' => 'required|sometimes',
-            'pick_up_time' => 'required|sometimes',
-            'table_number' => 'required|sometimes',
-            'shipping_charge' => 'required|sometimes',
+            // 'pick_up_date' => 'required|sometimes',
+            // 'pick_up_time' => 'required|sometimes',
+            'table_number' => 'required|nullable',
+            // 'shipping_charge' => 'required|nullable',
             'cardNumber' => 'required|sometimes',
             'cardCVC' => 'required|sometimes',
             'month' => 'required|sometimes',
@@ -206,7 +203,7 @@ class PaymentController extends Controller
 
         if (!$request->has('same_as_shipping') || $request->same_as_shipping != 1) {
             $rules['billing_fname'] = 'required';
-            $rules['billing_lname'] = 'required|sometimes';
+            $rules['billing_lname'] = 'sometimes';
             $rules['billing_address'] = 'required|sometimes';
             $rules['billing_city'] = 'required|sometimes';
             $rules['billing_country'] = 'required|sometimes';
