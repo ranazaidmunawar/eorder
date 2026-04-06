@@ -523,7 +523,7 @@
             </div>
             @endif
 
-            @if($firstOnline)
+            <!-- @if($firstOnline) -->
             <div class="payment-btn p-category-toggle" onclick="selectPayment('card')">
                 <div class="payment-icons">
                     <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa">
@@ -531,7 +531,7 @@
                 </div>
                 <div class="btn-text">{{ $keywords['Card_payment'] ?? __('Card payment') }}</div>
             </div>
-            @endif
+            <!-- @endif -->
         </div>
 
 
