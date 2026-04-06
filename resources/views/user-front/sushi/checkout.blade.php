@@ -19,7 +19,7 @@
         --color-primary: #044b4a;
         --color-primary-rgb: 4, 75, 74;
     }
-    body { background-color: #fcfcfc; }
+    body { background-color: #f8fbfb; }
     .cart-page-container {
         padding-bottom: 200px;
         max-width: 550px;
@@ -44,6 +44,9 @@
         color: #888;
         font-size: 0.75rem;
         flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .checkout-toggle-item.active {
         background: #fff;
@@ -53,17 +56,18 @@
     /* Inputs */
     .input-with-icon {
         position: relative;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
     }
     .input-with-icon .form-control, .input-with-icon select {
         padding-right: 50px;
         padding-left: 20px;
         border-radius: 18px;
-        height: 65px;
-        border: 1px solid #eee;
+        height: 60px;
+        border: 1px solid #f0f0f0;
         background-color: #fff !important;
         font-size: 0.95rem;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+        font-weight: 600;
     }
     .input-with-icon .input-icon {
         position: absolute;
@@ -71,7 +75,7 @@
         top: 50%;
         transform: translateY(-50%);
         color: var(--color-primary);
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     .floating-label {
         position: absolute;
@@ -82,24 +86,34 @@
         font-weight: 800;
         z-index: 10;
     }
-    /* Summary Card */
-    .summary-card {
+    
+    /* Boxed Sections */
+    .content-box {
         background: #fff;
-        border-radius: 25px;
-        padding: 25px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        margin-top: 30px;
-        margin-bottom: 20px;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.01);
+        margin-bottom: 25px;
     }
-    .summary-title { text-align: right; font-weight: 800; font-size: 0.85rem; margin-bottom: 15px; }
+
+    /* Order Details Summary */
+    .order-details-box {
+        background: #fff;
+        border-radius: 20px;
+        padding: 22px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+        margin-bottom: 25px;
+    }
+    .order-details-title { text-align: right; font-weight: 800; font-size: 1rem; margin-bottom: 15px; color: #333; }
     .summary-row {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 10px;
-        font-size: 0.9rem;
+        margin-bottom: 12px;
+        font-size: 0.95rem;
     }
     .summary-row .label { color: #888; font-weight: 600; }
     .summary-row .value { color: #333; font-weight: 800; }
+    
     .total-row {
         border-top: 1.5px solid #f8f9fa;
         padding-top: 20px;
@@ -108,90 +122,61 @@
         justify-content: space-between;
         align-items: center;
     }
-    .total-label { font-size: 1.1rem; font-weight: 800; color: var(--color-primary); }
-    .total-value { font-size: 1.4rem; font-weight: 900; color: var(--color-primary); }
+    .total-label { font-size: 1.25rem; font-weight: 800; color: var(--color-primary); }
+    .total-value { font-size: 1.6rem; font-weight: 900; color: var(--color-primary); }
 
-    /* Payment List (Radios) */
-    .pay-via-list {
+    /* Payment Buttons */
+    .payment-method-row {
         display: flex;
-        flex-direction: column;
         gap: 12px;
-        margin-top: 15px;
-        margin-bottom: 30px;
-    }
-    .gateway-item {
-        background: #fff;
-        border: 1px solid #eee;
-        border-radius: 20px;
-        padding: 18px 25px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        cursor: pointer;
-        transition: all 0.3s;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-    }
-    .gateway-item.active {
-        border-color: var(--color-primary);
-        background: #f1f9f9;
-    }
-    .gateway-name { font-weight: 700; color: #333; font-size: 0.95rem; }
-    .radio-circle {
-        width: 22px;
-        height: 22px;
-        border: 2px solid #ddd;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s;
-    }
-    .gateway-item.active .radio-circle {
-        border-color: var(--color-primary);
-    }
-    .radio-inner {
-        width: 10px;
-        height: 10px;
-        background: var(--color-primary);
-        border-radius: 50%;
-        display: none;
-    }
-    .gateway-item.active .radio-inner { display: block; }
-
-    /* Coupon */
-    .coupon-box {
-        background: #fff;
-        border-radius: 20px;
-        padding: 10px;
-        display: flex;
-        gap: 10px;
-        border: 1px solid #eee;
         margin-bottom: 25px;
     }
-    .coupon-box input { border: none; flex-grow: 1; padding: 0 15px; font-weight: 600; outline: none; }
-    .btn-apply {
-        background: var(--color-primary);
-        color: #fff;
-        border: none;
-        border-radius: 12px;
-        padding: 10px 25px;
-        font-weight: 700;
-        font-size: 0.85rem;
+    .payment-btn {
+        flex: 1;
+        background: #fff;
+        border: 1.5px solid #f0f0f0;
+        border-radius: 18px;
+        padding: 15px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        min-height: 85px;
     }
+    .payment-btn.active {
+        border-color: var(--color-primary);
+        background: #f1f9f9;
+        box-shadow: 0 8px 20px rgba(var(--color-primary-rgb), 0.08);
+    }
+    .payment-btn .btn-text { font-weight: 800; font-size: 0.85rem; color: var(--color-primary); text-align: center; margin-top: 8px; }
+    .payment-btn .payment-icons { display: flex; gap: 5px; margin-bottom: 2px; }
+    .payment-btn .payment-icons img { height: 18px; }
+
+    /* Section Headers */
+    .section-header { text-align: right; font-weight: 800; font-size: 0.9rem; color: #333; margin-bottom: 15px; }
 
     /* Product Summary */
+    .product-summary-box {
+        background: #fff;
+        border-radius: 20px;
+        padding: 15px;
+        margin-bottom: 30px;
+    }
     .product-summary-item {
         display: flex;
         align-items: center;
-        gap: 15px;
-        padding: 15px 0;
+        gap: 12px;
+        padding: 10px 0;
         border-bottom: 1px solid #f8f9fa;
     }
-    .product-summary-item img { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; }
-    .product-info h6 { margin: 0; font-weight: 800; font-size: 0.85rem; }
-    .product-info span { font-size: 0.75rem; color: #888; font-weight: 600; }
+    .product-summary-item:last-child { border-bottom: none; }
+    .product-summary-item img { width: 45px; height: 45px; border-radius: 10px; object-fit: cover; }
+    .product-info h6 { margin: 0; font-weight: 800; font-size: 0.8rem; }
+    .product-info span { font-size: 0.7rem; color: #888; font-weight: 600; }
 
-    /* Sticky Bottom Bar */
+    /* Sticky Action Bar */
     .sticky-action-bar-container {
         position: fixed;
         bottom: 20px;
@@ -200,15 +185,15 @@
         display: flex;
         justify-content: center;
         z-index: 1000;
-        padding: 0 20px;
+        padding: 0 15px;
     }
     .sticky-card {
         background: #fff;
-        padding: 15px;
+        padding: 10px;
         border-radius: 25px;
         width: 100%;
-        max-width: 480px;
-        box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        max-width: 500px;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.15);
     }
     .btn-submit {
         background-color: var(--color-primary);
@@ -216,11 +201,47 @@
         width: 100%;
         border: none;
         border-radius: 20px;
-        padding: 18px;
+        padding: 16px;
         font-weight: 800;
-        font-size: 1.1rem;
+        font-size: 1.15rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    .section-header { text-align: right; font-weight: 800; font-size: 0.85rem; color: #333; margin-bottom: 12px; }
+    
+    /* Notes Textarea */
+    .order-notes-textarea {
+        border-radius: 18px;
+        border: 1px solid #f0f0f0;
+        padding: 15px 20px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+        min-height: 120px;
+        resize: none;
+        background-color: #fff;
+    }
+    
+    /* Coupon */
+    .coupon-box {
+        background: #fff;
+        border-radius: 18px;
+        padding: 8px;
+        display: flex;
+        gap: 10px;
+        border: 1px solid #f0f0f0;
+        margin-bottom: 25px;
+    }
+    .coupon-box input { border: none; flex-grow: 1; padding: 0 15px; font-weight: 600; outline: none; font-size: 0.85rem; }
+    .btn-apply {
+        background: var(--color-primary);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 8px 20px;
+        font-weight: 700;
+        font-size: 0.8rem;
+    }
 </style>
 
 <div class="container py-7 cart-page-container">
@@ -241,87 +262,96 @@
         <h6 class="section-header">Serving method</h6>
         <div class="checkout-toggle-group">
             @foreach ($smethods as $sm)
+                @php
+                    $label = $sm->name;
+                    if ($sm->name == 'On Table') $label = 'Eat at the restaurant';
+                    elseif ($sm->name == 'Pick Up') $label = 'Receive it yourself';
+                    elseif ($sm->name == 'Home Delivery') $label = 'Delivery';
+                @endphp
                 <div class="checkout-toggle-item serving-method-toggle {{ $loop->first ? 'active' : '' }}" 
                      onclick="selectServingMethod('{{ $sm->value }}', this)">
                     <input type="radio" name="serving_method" value="{{ $sm->value }}" class="d-none" 
                            {{ $loop->first ? 'checked' : '' }}>
-                    <span>{{ $keywords[str_replace(' ', '_', $sm->name)] ?? __($sm->name) }}</span>
+                    <span>{{ $keywords[str_replace(' ', '_', $label)] ?? __($label) }}</span>
                 </div>
             @endforeach
         </div>
 
-        <!-- Information Fields -->
-        <h6 class="section-header">Order details</h6>
-        <div id="dynamic-fields">
-            <div id="on_table_fields" class="serving-fields" style="display:none;">
-                <div class="input-with-icon">
-                    <input type="text" name="table_number" class="form-control" placeholder="Table number *" value="{{ session('table') }}">
-                    <span class="input-icon"><i class="fas fa-utensils"></i></span>
-                </div>
-                <div class="input-with-icon">
-                    <input type="text" name="waiter_name" class="form-control" placeholder="Waiter name">
-                    <span class="input-icon"><i class="fas fa-user-tie"></i></span>
-                </div>
-            </div>
+        <!-- Contact Information Fields -->
+        <h6 class="section-header">Contact information</h6>
+        <div class="content-box">
+            <div id="dynamic-fields">
+                <!-- <div id="on_table_fields" class="serving-fields" style="display:none;">
+                    <div class="input-with-icon">
+                        <input type="text" name="table_number" class="form-control" placeholder="Table number *" value="{{ session('table') }}">
+                        <span class="input-icon"><i class="fas fa-utensils"></i></span>
+                    </div>
+                    <div class="input-with-icon">
+                        <input type="text" name="waiter_name" class="form-control" placeholder="Waiter name">
+                        <span class="input-icon"><i class="fas fa-user-tie"></i></span>
+                    </div>
+                </div> -->
 
-            <div id="home_delivery_fields" class="serving-fields" style="display:none;">
-                @if ($userBs->postal_code == 1 && !empty($pfeatures) && in_array('Postal Code Based Delivery Charge',$pfeatures))
-                <div class="input-with-icon">
-                    <span class="floating-label">Select region *</span>
-                    <select name="postal_code" id="postal_code" class="form-control">
-                        <option value="" disabled selected>Select region</option>
-                        @foreach ($postcodes as $pc)
-                            <option value="{{ $pc->id }}" data="{{ !empty($pc->free_delivery_amount) && (cartTotal() >= $pc->free_delivery_amount) ? 0 : $pc->charge }}">
-                                {{ $pc->title }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <span class="input-icon"><i class="fas fa-map-marker-alt"></i></span>
-                </div>
-                @endif
-                <div class="input-with-icon">
-                    <input type="text" name="shipping_address" class="form-control" placeholder="Delivery address *" value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->shipping_address : '' }}">
-                    <span class="input-icon"><i class="fas fa-home"></i></span>
-                </div>
-            </div>
-
-            <div class="input-with-icon">
-                <input type="text" name="billing_fname" class="form-control" placeholder="Your name *" value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->firstname : '' }}" required>
-                <span class="input-icon"><i class="far fa-user"></i></span>
-            </div>
-
-            <div class="row g-2 mb-3">
-                <div class="col-4">
-                    <div class="input-with-icon mb-0">
-                        <select name="billing_country_code" class="form-control px-2" style="font-size: 0.8rem;">
-                            @foreach ($ccodes as $cc)
-                                <option value="{{ $cc['code'] }}" {{ $cc['code'] == '+972' ? 'selected' : '' }}>{{ $cc['code'] }}</option>
+                <div id="home_delivery_fields" class="serving-fields" style="display:none;">
+                    @if ($userBs->postal_code == 1 && !empty($pfeatures) && in_array('Postal Code Based Delivery Charge',$pfeatures))
+                    <div class="input-with-icon">
+                        <span class="floating-label">Select region *</span>
+                        <select name="postal_code" id="postal_code" class="form-control">
+                            <option value="" disabled selected>Select region</option>
+                            @foreach ($postcodes as $pc)
+                                <option value="{{ $pc->id }}" data="{{ !empty($pc->free_delivery_amount) && (cartTotal() >= $pc->free_delivery_amount) ? 0 : $pc->charge }}">
+                                    {{ $pc->title }}
+                                </option>
                             @endforeach
                         </select>
+                        <span class="input-icon"><i class="fas fa-map-marker-alt"></i></span>
+                    </div>
+                    @endif
+                    <div class="input-with-icon">
+                        <input type="text" name="shipping_address" class="form-control" placeholder="Enter the address *" value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->shipping_address : '' }}">
+                        <span class="input-icon"><i class="fas fa-home"></i></span>
                     </div>
                 </div>
-                <div class="col-8">
-                    <div class="input-with-icon mb-0">
-                        <input type="tel" name="billing_number" class="form-control" placeholder="Mobile number *" value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->phone : '' }}" required>
-                        <span class="input-icon"><i class="fas fa-mobile-alt"></i></span>
+
+                <div class="input-with-icon">
+                    <input type="text" name="billing_fname" class="form-control" placeholder="Enter the name *" value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->firstname : '' }}" required>
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                </div>
+
+                <div class="row g-2 mb-2">
+                    <div class="col-4">
+                        <div class="input-with-icon mb-0">
+                            <select name="billing_country_code" class="form-control px-2" style="font-size: 0.8rem;">
+                                @foreach ($ccodes as $cc)
+                                    <option value="{{ $cc['code'] }}" {{ $cc['code'] == '+972' ? 'selected' : '' }}>{{ $cc['code'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="input-with-icon mb-0">
+                            <input type="tel" name="billing_number" class="form-control" placeholder="Enter mobile number *" value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->phone : '' }}" required>
+                            <span class="input-icon"><i class="fas fa-mobile-alt"></i></span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            @guest
-            <div class="input-with-icon">
-                <input type="email" name="billing_email" class="form-control" placeholder="Email address *" required>
-                <span class="input-icon"><i class="far fa-envelope"></i></span>
-            </div>
-            @else
-            <input type="hidden" name="billing_email" value="{{ Auth::guard('client')->user()->email }}">
-            @endguest
+                @guest
+                <div class="input-with-icon">
+                    <input type="email" name="billing_email" class="form-control" placeholder="Email address *" required>
+                    <span class="input-icon"><i class="far fa-envelope"></i></span>
+                </div>
+                @else
+                <input type="hidden" name="billing_email" value="{{ Auth::guard('client')->user()->email }}">
+                @endguest
 
-            <textarea name="order_notes" class="form-control mb-4" rows="3" placeholder="Order notes (optional)"></textarea>
+                <textarea name="order_notes" class="form-control order-notes-textarea mt-3" rows="2" placeholder="Additional notes for the order"></textarea>
+            </div>
         </div>
 
+
         <!-- Order Summary (Products) -->
-        <h6 class="section-header">Items summary</h6>
+        <!-- <h6 class="section-header">Items summary</h6>
         <div class="summary-card py-2">
             @if(!empty($cart))
                 @foreach($cart as $id => $item)
@@ -338,16 +368,17 @@
                     </div>
                 @endforeach
             @endif
-        </div>
+        </div> -->
 
         <!-- Coupon -->
-        <div class="coupon-box shadow-sm">
+        <!-- <div class="coupon-box shadow-sm">
             <input type="text" id="coupon_code" placeholder="Enter coupon code">
             <button type="button" class="btn-apply" onclick="applyCoupon()">Apply</button>
-        </div>
+        </div> -->
 
-        <!-- Calculations Card -->
-        <div class="summary-card">
+        <!-- Order Details (Calculations) -->
+        <h6 class="section-header">Order details</h6>
+        <div class="order-details-box">
             <div class="summary-row">
                 <span class="value">{{ $userBe->base_currency_symbol_position == 'left' ? $userBe->base_currency_symbol : '' }}<span id="subtotal-val">{{ cartTotal() }}</span>{{ $userBe->base_currency_symbol_position == 'right' ? $userBe->base_currency_symbol : '' }}</span>
                 <span class="label">Subtotal</span>
@@ -360,7 +391,7 @@
             @endif
             <div id="shipping-row" class="summary-row" style="display:none;">
                 <span class="value">+ {{ $userBe->base_currency_symbol_position == 'left' ? $userBe->base_currency_symbol : '' }}<span id="shipping-val">0</span>{{ $userBe->base_currency_symbol_position == 'right' ? $userBe->base_currency_symbol : '' }}</span>
-                <span class="label">Delivery charge</span>
+                <span class="label">Delivery cost</span>
             </div>
             <div id="discount-row" class="summary-row text-success" style="display:none;">
                 <span class="value">- {{ $userBe->base_currency_symbol_position == 'left' ? $userBe->base_currency_symbol : '' }}<span id="discount-val">0</span>{{ $userBe->base_currency_symbol_position == 'right' ? $userBe->base_currency_symbol : '' }}</span>
@@ -376,49 +407,61 @@
             </div>
         </div>
 
-        <!-- Payment Multi-Level Selector -->
-        <h6 class="section-header">Payment category</h6>
-        <div class="checkout-toggle-group">
-            <div class="checkout-toggle-item p-category-toggle active" onclick="togglePaymentGroup('online', this)">Card Payment</div>
-            <div class="checkout-toggle-item p-category-toggle" onclick="togglePaymentGroup('offline', this)">Cash on Delivery</div>
+        <!-- Payment Method -->
+        @php
+            $firstOffline = $ogateways->first();
+            $firstOnline = null;
+            $onlineList = ['paypal', 'stripe', 'paystack', 'flutterwave', 'razorpay', 'instamojo', 'paytm', 'mollie', 'mercadopago', 'anet', 'yoco', 'xendit', 'perfect_money', 'midtrans', 'myfatoorah', 'toyyibpay', 'paytabs', 'iyzico', 'phonepe'];
+            $onlineGateways = ['paypal', 'stripe', 'paystack', 'flutterwave', 'razorpay', 'instamojo', 'paytm', 'mollie', 'mercadopago', 'anet', 'yoco', 'xendit', 'perfect_money', 'midtrans', 'myfatoorah', 'toyyibpay', 'paytabs', 'phonepe'];
+            foreach($onlineGateways as $gw) {
+                if(isset($$gw) && $$gw->status == 1) {
+                    $firstOnline = $gw;
+                    break;
+                }
+            }
+        @endphp
+
+        <h6 class="section-header">payment method</h6>
+        <div class="payment-method-row">
+            @if($firstOffline)
+            <div class="payment-btn {{ $firstOffline ? 'active' : '' }} p-category-toggle" onclick="selectPayment('cash')">
+                <div class="btn-text">Cash on delivery</div>
+            </div>
+            @endif
+
+            @if($firstOnline)
+            <div class="payment-btn p-category-toggle" onclick="selectPayment('card')">
+                <div class="payment-icons">
+                    <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa">
+                    <img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="Mastercard">
+                </div>
+                <div class="btn-text">Card payment</div>
+            </div>
+            @endif
         </div>
 
-        <div id="payment-gateways-container" class="mb-10">
-            <h6 class="section-header text-muted">Pay Via</h6>
-            
-            <!-- Online Gateways -->
-            <div id="online-list" class="pay-via-list mb-5">
-                @php 
-                    $onlineNames = [
-                        'paypal' => 'PayPal', 'stripe' => 'Credit/Debit Card', 'paystack' => 'Paystack', 
-                        'flutterwave' => 'Flutterwave', 'razorpay' => 'Razorpay', 'instamojo' => 'Instamojo',
-                        'paytm' => 'PayTM', 'mollie' => 'Mollie', 'mercadopago' => 'MercadoPago',
-                        'anet' => 'Authorize.Net', 'yoco' => 'Yoco', 'xendit' => 'Xendit'
-                    ];
-                @endphp
-                @foreach($onlineNames as $key => $name)
+
+        <div id="payment-gateways-container" style="display:none;">
+            <!-- Hidden gateway lists for selection logic -->
+            <div id="online-list" class="d-none">
+                @foreach($onlineList as $key)
                     @if(isset($$key) && $$key->status == 1)
-                        <div class="gateway-item" onclick="selectGateway('{{ $key }}', 'online', this)">
-                            <div class="gateway-name">{{ $name }}</div>
-                            <div class="radio-circle"><div class="radio-inner"></div></div>
-                        </div>
+                        <div class="gateway-hidden-item" data-id="{{ $key }}" data-type="online" onclick="selectGateway('{{ $key }}', 'online', this)"></div>
                     @endif
                 @endforeach
             </div>
-
-            <!-- Offline Gateways -->
-            <div id="offline-list" class="pay-via-list" style="display:none;">
+            <div id="offline-list" class="d-none">
                 @foreach($ogateways as $og)
-                    <div class="gateway-item" onclick="selectGateway('{{ $og->id }}', 'offline', this)">
-                        <div class="gateway-name">{{ $og->name }}</div>
-                        <div class="radio-circle"><div class="radio-inner"></div></div>
-                    </div>
+                    <div class="gateway-hidden-item" data-id="{{ $og->id }}" data-type="offline" onclick="selectGateway('{{ $og->id }}', 'offline', this)"></div>
                 @endforeach
             </div>
         </div>
 
-        <input type="hidden" name="payment_method" id="payment_gateway_input">
-        <input type="hidden" name="gateway" id="gateway_internal">
+
+        <input type="hidden" name="payment_method" id="paymentInput" value="{{ $firstOffline ? 'cash' : 'card' }}">
+        <input type="hidden" name="gateway" id="gateway_internal" value="{{ $firstOffline ? $firstOffline->id : ($firstOnline ?? '') }}">
+
+
     </form>
 </div>
 
@@ -455,43 +498,43 @@
         calcFinal();
     }
 
-    function togglePaymentGroup(type, el) {
+    function selectPayment(type) {
         $('.p-category-toggle').removeClass('active');
-        $(el).addClass('active');
-        $('.pay-via-list').hide();
-        $(`#${type}-list`).show();
-        $(`#${type}-list .gateway-item`).first().trigger('click');
-    }
-
-    function selectGateway(id, type, el) {
-        $('.gateway-item').removeClass('active');
-        $(el).addClass('active');
+        // Find the button by its click event argument
+        $(`.p-category-toggle[onclick*="'${type}'"]`).addClass('active');
         
-        $('#payment_gateway_input').val(type === 'online' ? id : 'offline'+id);
+        let id = "";
+        if (type === 'card') {
+            id = "{{ $firstOnline }}";
+            $('#paymentInput').val('card');
+        } else {
+            id = "{{ $firstOffline->id ?? '' }}";
+            $('#paymentInput').val('cash');
+        }
         $('#gateway_internal').val(id);
 
         let action = "";
-        if (type === 'online') {
-            if (id === 'paypal') action = "{{ route('product.paypal.submit', getParam()) }}";
-            else if (id === 'stripe') action = "{{ route('product.stripe.submit', getParam()) }}";
-            else {
-                 let routeMap = {
-                    'paystack': "{{ route('product.paystack.submit', getParam()) }}",
-                    'flutterwave': "{{ route('product.flutterwave.submit', getParam()) }}",
-                    'razorpay': "{{ route('product.razorpay.submit', getParam()) }}",
-                    'instamojo': "{{ route('product.instamojo.submit', getParam()) }}",
-                    'paytm': "{{ route('product.paytm.submit', getParam()) }}",
-                    'mollie': "{{ route('product.mollie.submit', getParam()) }}",
-                    'mercadopago': "{{ route('product.mercadopago.submit', getParam()) }}",
-                    'anet': "{{ route('product.anet.submit', getParam()) }}",
-                 };
-                 action = routeMap[id] || "";
-            }
+        if (type === 'card') {
+            let routeMap = {
+                'paypal': "{{ route('product.paypal.submit', getParam()) }}",
+                'stripe': "{{ route('product.stripe.submit', getParam()) }}",
+                'paystack': "{{ route('product.paystack.submit', getParam()) }}",
+                'flutterwave': "{{ route('product.flutterwave.submit', getParam()) }}",
+                'razorpay': "{{ route('product.razorpay.submit', getParam()) }}",
+                'instamojo': "{{ route('product.instamojo.submit', getParam()) }}",
+                'paytm': "{{ route('product.paytm.submit', getParam()) }}",
+                'mollie': "{{ route('product.mollie.submit', getParam()) }}",
+                'mercadopago': "{{ route('product.mercadopago.submit', getParam()) }}",
+                'anet': "{{ route('product.anet.submit', getParam()) }}",
+                'phonepe': "{{ route('product.phonepe.submit', getParam()) }}",
+            };
+            action = routeMap[id] || "";
         } else {
             action = "{{ route('product.offline.submit', [getParam(), ':id']) }}".replace(':id', id);
         }
         $('#payment').attr('action', action);
     }
+
 
     function applyCoupon() {
         let code = $('#coupon_code').val();
@@ -529,15 +572,15 @@
     }
 
     $(document).ready(function() {
+        // Initialize serving method
         selectServingMethod($('.serving-method-toggle.active input').val(), $('.serving-method-toggle.active'));
         $(document).on('change', '#postal_code', calcFinal);
         
-        // Default to Offline for easier testing if available
-        if($('.p-category-toggle').length > 1) {
-            togglePaymentGroup('offline', $('.p-category-toggle').last());
-        } else {
-            togglePaymentGroup('online', $('.p-category-toggle').first());
-        }
+        // Initialize payment category from the active button (Card or Cash)
+        let defaultType = "{{ $firstOffline ? 'cash' : 'card' }}";
+        selectPayment(defaultType);
     });
+
+
 </script>
 @endsection
