@@ -188,7 +188,7 @@ class PaymentController extends Controller
             'shipping_email' => 'required|sometimes',
             // 'pick_up_date' => 'required|sometimes',
             // 'pick_up_time' => 'required|sometimes',
-            // 'table_number' => 'required|nullable',
+            'table_number' => $request->serving_method == 'on_table' ? 'required' : 'nullable',
             // 'shipping_charge' => 'required|nullable',
             'cardNumber' => 'required|sometimes',
             'cardCVC' => 'required|sometimes',
@@ -212,10 +212,15 @@ class PaymentController extends Controller
             $rules['billing_country_code'] = 'required';
         }
 
+        $pfeatures = UserPermissionHelper::packagePermission($user->id);
+        $pfeatures = json_decode($pfeatures, true);
 
-        // if ($request->serving_method == 'home_delivery' && $bs->postal_code == 1) {
-        //     $rules['postal_code'] = 'required';
-        // }
+
+        if ($request->serving_method == 'home_delivery' && $bs->postal_code == 1) {
+            if ($pfeatures && in_array('Postal Code Based Delivery Charge', $pfeatures)) {
+                $rules['postal_code'] = 'required';
+            }
+        }
 
         // return $request;
         // delivery date & time validation
