@@ -39,8 +39,8 @@ class LoginController extends Controller
         $user = getUser();
         $theme = strtolower($user->theme);
         
-        if ($theme == 'sushi' || $user->username == 'sushi') {
-            return view('user-front.sushi.login');
+        if ($theme == 'elack' || $user->username == 'elack') {
+            return view('user-front.elack.login');
         }
 
         if (view()->exists('user-front.' . $theme . '.login')) {

@@ -165,15 +165,15 @@
                                         </div>
                                         <div class="col-4 col-sm-4">
                                             <label class="imagecheck mb-2">
-                                                <input name="theme" type="radio" value="sushi"
+                                                <input name="theme" type="radio" value="elack"
                                                     class="imagecheck-input"
-                                                    {{ !empty($abs->theme) && $abs->theme == 'sushi' ? 'checked' : '' }}>
+                                                    {{ !empty($abs->theme) && $abs->theme == 'elack' ? 'checked' : '' }}>
                                                 <figure class="imagecheck-figure">
                                                     <img src="{{ asset('assets/tenant/img/themes/pizza.png') }}"
                                                         alt="title" class="imagecheck-image">
                                                 </figure>
                                             </label>
-                                            <h5 class="text-center">{{ __('Sushi Theme') }}</h5>
+                                            <h5 class="text-center">{{ __('Elack Theme') }}</h5>
                                         </div>
                                     </div>
                                 </div>

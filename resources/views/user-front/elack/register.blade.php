@@ -5,16 +5,16 @@
 @endsection
 
 @section('style')
-    @includeIf('user-front.sushi.include.sushi_css')
+    @includeIf('user-front.elack.include.elack_css')
 <style>
     :root {
-        --sushi-primary: #0f5156;
-        --sushi-bg: #f4f6f9;
-        --sushi-card: #ffffff;
+        --elack-primary: #0f5156;
+        --elack-bg: #f4f6f9;
+        --elack-card: #ffffff;
     }
 
     body {
-        background-color: var(--sushi-bg);
+        background-color: var(--elack-bg);
     }
 
     .login-page-wrapper {
@@ -37,7 +37,7 @@
     }
 
     .login-form-card {
-        background: var(--sushi-card);
+        background: var(--elack-card);
         padding: 40px;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -49,7 +49,7 @@
     }
     .login-branding i {
         font-size: 2.5rem;
-        color: var(--sushi-primary);
+        color: var(--elack-primary);
         margin-bottom: 10px;
     }
     .login-branding h2 {
@@ -59,18 +59,18 @@
         margin: 0;
     }
 
-    .sushi-input-group {
+    .elack-input-group {
         text-align: left;
         margin-bottom: 15px;
     }
-    .sushi-label {
+    .elack-label {
         display: block;
         font-size: 0.85rem;
         font-weight: 600;
         color: #555;
         margin-bottom: 6px;
     }
-    .sushi-input {
+    .elack-input {
         width: 100%;
         padding: 12px 15px;
         border-radius: 8px;
@@ -78,13 +78,13 @@
         background: #fff;
         transition: border-color 0.2s;
     }
-    .sushi-input:focus {
-        border-color: var(--sushi-primary);
+    .elack-input:focus {
+        border-color: var(--elack-primary);
         outline: none;
     }
 
     .login-submit-btn {
-        background: var(--sushi-primary);
+        background: var(--elack-primary);
         color: #fff;
         width: 100%;
         padding: 14px;
@@ -129,33 +129,33 @@
 
                 <form action="{{ route('user.client.register.submit', getParam()) }}" method="POST">
                     @csrf
-                    <div class="sushi-input-group">
-                        <label class="sushi-label">{{ $keywords['Username'] ?? __('Username') }} *</label>
-                        <input type="text" name="username" class="sushi-input" value="{{ Request::old('username') }}" required>
+                    <div class="elack-input-group">
+                        <label class="elack-label">{{ $keywords['Username'] ?? __('Username') }} *</label>
+                        <input type="text" name="username" class="elack-input" value="{{ Request::old('username') }}" required>
                         @error('username')
                             <p class="text-danger small mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="sushi-input-group">
-                        <label class="sushi-label">{{ $keywords['Email_Address'] ?? __('Email Address') }} *</label>
-                        <input type="email" name="email" class="sushi-input" value="{{ Request::old('email') }}" required>
+                    <div class="elack-input-group">
+                        <label class="elack-label">{{ $keywords['Email_Address'] ?? __('Email Address') }} *</label>
+                        <input type="email" name="email" class="elack-input" value="{{ Request::old('email') }}" required>
                         @error('email')
                             <p class="text-danger small mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="sushi-input-group">
-                        <label class="sushi-label">{{ $keywords['Password'] ?? __('Password') }} *</label>
-                        <input type="password" name="password" class="sushi-input" required>
+                    <div class="elack-input-group">
+                        <label class="elack-label">{{ $keywords['Password'] ?? __('Password') }} *</label>
+                        <input type="password" name="password" class="elack-input" required>
                         @error('password')
                             <p class="text-danger small mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="sushi-input-group">
-                        <label class="sushi-label">{{ $keywords['Confirmation_Password'] ?? __('Confirmation Password') }} *</label>
-                        <input type="password" name="password_confirmation" class="sushi-input" required>
+                    <div class="elack-input-group">
+                        <label class="elack-label">{{ $keywords['Confirmation_Password'] ?? __('Confirmation Password') }} *</label>
+                        <input type="password" name="password_confirmation" class="elack-input" required>
                         @error('password_confirmation')
                             <p class="text-danger small mt-1">{{ $message }}</p>
                         @enderror

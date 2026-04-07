@@ -3,7 +3,7 @@
     {{ $keywords['Home'] ?? __('Home') }}
 @endsection
 @section('style')
-    @includeIf('user-front.sushi.include.sushi_css')
+    @includeIf('user-front.elack.include.elack_css')
     <style>
         .toast-success, .toast-error, .toast-warning, .toast-info {
             background: #0f5156 !important;
@@ -22,12 +22,12 @@
 @section('content')
     <!-- Home-area start-->
     <!--===Start Hero Section====--->
-    @includeIf('user-front.sushi.heroSeaction')
+    @includeIf('user-front.elack.heroSeaction')
     <!---===End Hero Section ==-->
 
   <!-- Start menu Section -->
     @if ($userBs->menu_section == 1)
-        @includeIf('user-front.sushi.categoryProductSection')
+        @includeIf('user-front.elack.categoryProductSection')
     @endif
     <!-- End menu Section -->
   
@@ -35,5 +35,5 @@
 @endsection
 
 @section('script')
-    @includeIf('user-front.sushi.include.sushi_js')
+    @includeIf('user-front.elack.include.elack_js')
 @endsection

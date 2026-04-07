@@ -5,7 +5,7 @@
 @endsection
 
 @section('style')
-    @includeIf('user-front.sushi.include.sushi_css')
+    @includeIf('user-front.elack.include.elack_css')
 <style>
     :root {
         --sushi-primary: #0f5156;

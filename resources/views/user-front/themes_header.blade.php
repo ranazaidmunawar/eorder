@@ -18,6 +18,6 @@
     @includeIf('user-front.seabbq-desifoodie-desices.desifoodie.partials.header')
 @elseif($activeTheme == 'desices')
     @includeIf('user-front.seabbq-desifoodie-desices.desices.partials.header')
-@elseif($activeTheme == 'sushi')
-    @includeIf('user-front.sushi.partials.header')
+@elseif($activeTheme == 'elack')
+    @includeIf('user-front.elack.partials.header')
 @endif

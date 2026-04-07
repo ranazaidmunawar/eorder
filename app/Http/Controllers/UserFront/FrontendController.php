@@ -273,8 +273,8 @@ class FrontendController extends Controller
             return view('user-front.seabbq-desifoodie-desices.desifoodie.index', $data);
         } elseif ($currentTheme == "desices") {
             return view('user-front.seabbq-desifoodie-desices.desices.index', $data);
-        } else if ($currentTheme == "sushi") {
-            return view('user-front.sushi.index', $data);
+        } else if ($currentTheme == "elack" || $currentTheme == "sushi") {
+            return view('user-front.elack.index', $data);
         } else {
             return view('user-front.fastfood.index', $data);
         }

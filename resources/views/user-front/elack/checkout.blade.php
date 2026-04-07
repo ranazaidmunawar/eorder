@@ -517,12 +517,11 @@
 
         <h6 class="section-header">payment method</h6>
         <div class="payment-method-row">
-          
-            <div class="payment-btn {{ $firstOffline ? 'active' : '' }} p-category-toggle" onclick="selectPayment('cash')">
+            @if($firstOffline)
+            <div class="payment-btn active p-category-toggle" onclick="selectPayment('cash')">
                 <div class="btn-text">{{ $keywords['Cash_on_delivery'] ?? __('Cash on delivery') }}</div>
             </div>
-              <!-- @if($firstOffline)
-            @endif -->
+            @endif
 
             @if($firstOnline)
             <div class="payment-btn p-category-toggle" onclick="selectPayment('card')">
@@ -554,7 +553,7 @@
 
 
         <input type="hidden" name="payment_method" id="paymentInput" value="{{ $firstOffline ? 'cash' : 'card' }}">
-        <input type="hidden" name="gateway" id="gateway_internal" value="{{ $firstOffline ? $firstOffline->id : ($firstOnline ?? '') }}">
+        <input type="hidden" name="gateway" id="gateway_internal" value="{{ $firstOffline ? $firstOffline->id : ($firstOnline->id ?? '') }}">
 
 
     </form>
@@ -628,6 +627,11 @@
             };
             action = routeMap[id] || "";
         } else {
+            if (!id) {
+                console.error("No offline gateway ID found");
+                $('#payment').attr('action', '#');
+                return;
+            }
             action = "{{ route('product.offline.submit', [getParam(), ':id']) }}".replace(':id', id);
         }
         $('#payment').attr('action', action);

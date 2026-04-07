@@ -474,8 +474,8 @@ class ProductController extends Controller
 
         if (view()->exists('user-front.' . $user->theme_name . '.checkout')) {
             $view = 'user-front.' . $user->theme_name . '.checkout';
-        } elseif ($user->username == 'sushi' || $user->theme_name == 'sushi') {
-            $view = 'user-front.sushi.checkout';
+        } elseif ($user->username == 'elack' || $user->theme_name == 'elack') {
+            $view = 'user-front.elack.checkout';
         } else {
             $view = 'user-front.product.checkout';
         }

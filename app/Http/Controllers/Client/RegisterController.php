@@ -25,8 +25,8 @@ class RegisterController extends Controller
         $userBs = \App\Models\User\BasicSetting::where('user_id', $user->id)->where('language_id', $currentLang->id)->first();
         $data['userBs'] = $userBs;
         
-        if ($theme == 'sushi' || $user->username == 'sushi') {
-            return view('user-front.sushi.register', $data);
+        if ($theme == 'elack' || $user->username == 'elack') {
+            return view('user-front.elack.register', $data);
         }
 
         if (view()->exists('user-front.' . $theme . '.register')) {

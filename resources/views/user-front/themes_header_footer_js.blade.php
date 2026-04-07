@@ -12,9 +12,9 @@
     @endif
 @endif
 
-@if ($activeTheme == 'sushi')
+@if ($activeTheme == 'elack')
     @if (!request()->routeIs('user.front.index'))
-        @include('user-front.sushi.include.sushi_header_footer_js')
+        @include('user-front.elack.include.elack_header_footer_js')
     @endif
 @endif
 

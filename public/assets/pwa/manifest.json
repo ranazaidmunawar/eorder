@@ -1,5 +1,25 @@
-<<<<<<< HEAD
-{"start_url":"https:\/\/test.thetime-calculator.com\/sushi"}
-=======
-{"short_name":"","name":"","background_color":"#1640D3","theme_color":"#43D37A","start_url":"http:\/\/127.0.0.1:8000\/pizza","display":"standalone","icons":[{"src":"","type":"image\/png","sizes":"128X128"},{"src":"","type":"image\/png","sizes":"256X256"},{"src":"","type":"image\/png","sizes":"512X512"}]}
-
+{
+    "short_name": "Elack",
+    "name": "Elack Order",
+    "background_color": "#1640D3",
+    "theme_color": "#43D37A",
+    "start_url": "https://test.thetime-calculator.com/elack",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "",
+            "type": "image/png",
+            "sizes": "256x256"
+        },
+        {
+            "src": "",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}
