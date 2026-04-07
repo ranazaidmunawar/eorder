@@ -11,17 +11,17 @@
 @endsection
 
 @section('style')
-    @includeIf('user-front.elack.include.elack_css')
+    @includeIf('user-front.elak.include.elak_css')
     <style>
         :root {
-            --elack-primary: #0f5156;
-            --elack-bg: #f4f7f6;
+            --elak-primary: #0f5156;
+            --elak-bg: #f4f7f6;
         }
         .toast-message {
     background: #0f5156 !important;
 }
 
-        body { background-color: var(--elack-bg); }
+        body { background-color: var(--elak-bg); }
 
         .cart-page-container {
             max-width: 600px;
@@ -30,9 +30,9 @@
 
         .coupon-banner {
             background: #e6f2f1;
-            border: 1px dashed var(--elack-primary);
+            border: 1px dashed var(--elak-primary);
             border-radius: 12px;
-            color: var(--elack-primary);
+            color: var(--elak-primary);
             font-weight: 600;
             transition: all 0.2s;
         }
@@ -65,7 +65,7 @@
             border-radius: 8px;
             border: none;
             background: white;
-            color: var(--elack-primary);
+            color: var(--elak-primary);
             font-size: 0.7rem;
             display: flex;
             align-items: center;
@@ -93,9 +93,9 @@
             z-index: 1050;
         }
 
-        .btn-primary { background-color: var(--elack-primary); border-color: var(--elack-primary); }
-        .btn-outline-primary { color: var(--elack-primary); border-color: var(--elack-primary); }
-        .btn-outline-primary:hover { background-color: var(--elack-primary); color: white; }
+        .btn-primary { background-color: var(--elak-primary); border-color: var(--elak-primary); }
+        .btn-outline-primary { color: var(--elak-primary); border-color: var(--elak-primary); }
+        .btn-outline-primary:hover { background-color: var(--elak-primary); color: white; }
 
         /* Coupon Modal */
         .coupon-overlay {
@@ -121,9 +121,9 @@
         
         .coupon-close { position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 1.2rem; color: #999; }
         .coupon-input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 15px; text-align: center; }
-        .coupon-apply-btn { width: 100%; padding: 12px; background: var(--elack-primary); color: white; border: none; border-radius: 10px; font-weight: 700; }
+        .coupon-apply-btn { width: 100%; padding: 12px; background: var(--elak-primary); color: white; border: none; border-radius: 10px; font-weight: 700; }
 
-        .text-primary { color: var(--elack-primary) !important; }
+        .text-primary { color: var(--elak-primary) !important; }
     </style>
 @endsection
 
@@ -230,7 +230,7 @@
 @endsection
 
 @section('script')
-    @includeIf('user-front.elack.include.elack_js')
+    @includeIf('user-front.elak.include.elak_js')
     <script>
         function openCouponModal() {
             document.getElementById('coupon-overlay').classList.add('active');

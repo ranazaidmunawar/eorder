@@ -252,7 +252,7 @@ class FrontendController extends Controller
 
         $features = LimitCheckerHelper::getPackageSelectedData($user->id, 'features');
         $data['packageFeatures'] = json_decode($features->features, true);
-
+        // dd($currentTheme );
         if ($currentTheme == "fastfood") {
             return view('user-front.fastfood.index', $data);
         } elseif ($currentTheme == "bakery") {
@@ -273,8 +273,8 @@ class FrontendController extends Controller
             return view('user-front.seabbq-desifoodie-desices.desifoodie.index', $data);
         } elseif ($currentTheme == "desices") {
             return view('user-front.seabbq-desifoodie-desices.desices.index', $data);
-        } else if ($currentTheme == "elack" || $currentTheme == "sushi") {
-            return view('user-front.elack.index', $data);
+        } else if ($currentTheme == "elak") {
+            return view('user-front.elak.index', $data);
         } else {
             return view('user-front.fastfood.index', $data);
         }

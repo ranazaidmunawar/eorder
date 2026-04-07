@@ -37,10 +37,10 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         $user = getUser();
-        $theme = strtolower($user->theme);
-        
-        if ($theme == 'elack' || $user->username == 'elack') {
-            return view('user-front.elack.login');
+        $theme = strtolower($user->theme_name);
+
+        if ($theme == 'elak' || $user->username == 'elak') {
+            return view('user-front.elak.login');
         }
 
         if (view()->exists('user-front.' . $theme . '.login')) {

@@ -104,15 +104,15 @@
 
             <!-- Sticky Footer for Modal -->
             <div class="modal-sticky-footer">
-                <button id="sushiAddToCartBtn" class="modal-add-btn shadow-sm" onclick="sushiAddToCart()">
+                <button id="elakAddToCartBtn" class="modal-add-btn shadow-sm" onclick="elakAddToCart()">
                     <span id="modalTotalBtn" class="fs-6">0.00</span>
                     <span id="addToCartText">{{ $keywords['Add to Cart'] ?? __('Add to Cart') }}</span>
                 </button>
 
                 <div class="modal-qty-control shadow-sm">
-                    <button class="modal-qty-btn" onclick="sushiUpdateQty(1)"><i class="fas fa-plus"></i></button>
+                    <button class="modal-qty-btn" onclick="elakUpdateQty(1)"><i class="fas fa-plus"></i></button>
                     <input type="text" id="qtyInput" class="modal-qty-val" value="1" readonly>
-                    <button class="modal-qty-btn" onclick="sushiUpdateQty(-1)"><i class="fas fa-minus"></i></button>
+                    <button class="modal-qty-btn" onclick="elakUpdateQty(-1)"><i class="fas fa-minus"></i></button>
                 </div>
             </div>
 
@@ -176,7 +176,7 @@
                             this.classList.add('active');
                             
                             selectedVariations[vName] = { name: opt.name, price: opt.price };
-                            sushiCalculateVariationTotal();
+                            elakCalculateVariationTotal();
                         };
                         optionsDiv.appendChild(pill);
                     });
@@ -206,14 +206,14 @@
                             selectedAddons = selectedAddons.filter(a => a.name !== addon.name);
                             selectedAddonsTotal -= price;
                         }
-                        sushiCalculateTotal();
+                        elakCalculateTotal();
                     };
                     additionsContainer.appendChild(pill);
                 });
             } catch (e) { console.error("Addons error:", e); }
         }
 
-        sushiCalculateTotal();
+        elakCalculateTotal();
         
         if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
             new bootstrap.Modal(document.getElementById('productModal')).show();
@@ -222,31 +222,31 @@
         }
     }
 
-    function sushiCalculateVariationTotal() {
+    function elakCalculateVariationTotal() {
         selectedVariationsTotal = 0;
         for (const v in selectedVariations) {
             selectedVariationsTotal += parseFloat(selectedVariations[v].price);
         }
-        sushiCalculateTotal();
+        elakCalculateTotal();
     }
 
-    function sushiUpdateQty(delta) {
+    function elakUpdateQty(delta) {
         currentQty += delta;
         if (currentQty < 1) currentQty = 1;
         document.getElementById('qtyInput').value = currentQty;
-        sushiCalculateTotal();
+        elakCalculateTotal();
     }
 
-    function sushiCalculateTotal() {
+    function elakCalculateTotal() {
         const total = (currentProductBasePrice + selectedAddonsTotal + selectedVariationsTotal) * currentQty;
         const formattedTotal = (currencyPos == 'left' ? currencySymbol : '') + total.toFixed(2) + (currencyPos == 'right' ? currencySymbol : '');
         document.getElementById('modalTotalBtn').innerText = formattedTotal;
     }
 
-    function sushiAddToCart() {
+    function elakAddToCart() {
         if (!currentProduct) return;
 
-        const btn = document.getElementById('sushiAddToCartBtn');
+        const btn = document.getElementById('elakAddToCartBtn');
         const btnText = document.getElementById('addToCartText');
         const originalText = btnText.innerText;
 

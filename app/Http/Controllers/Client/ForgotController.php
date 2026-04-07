@@ -24,8 +24,8 @@ class ForgotController extends Controller
         $user = getUser();
         $theme = strtolower($user->theme);
         
-        if ($theme == 'elack' || $user->username == 'elack') {
-            return view('user-front.elack.forgot');
+        if ($theme == 'elak' || $user->username == 'elak') {
+            return view('user-front.elak.forgot');
         }
 
         if (view()->exists('user-front.' . $theme . '.forgot')) {
@@ -90,8 +90,8 @@ class ForgotController extends Controller
         $user = getUser();
         $theme = strtolower($user->theme);
         
-        if ($theme == 'elack' || $user->username == 'elack') {
-            return view('user-front.elack.create_password_form');
+        if ($theme == 'elak' || $user->username == 'elak') {
+            return view('user-front.elak.create_password_form');
         }
 
         if (view()->exists('user-front.' . $theme . '.create_password_form')) {

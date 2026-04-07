@@ -38,9 +38,9 @@
 @endif
 
 {{-- -- End Pizz theme Header & Footer css --}}
-@if ($activeTheme == 'elack')
+@if ($activeTheme == 'elak')
     @if (!request()->routeIs('user.front.index'))
-        @include('user-front.elack.include.elack_header_footer_css')
+        @include('user-front.elak.include.elak_header_footer_css')
     @endif
 @endif
 

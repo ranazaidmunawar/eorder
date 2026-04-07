@@ -18,6 +18,6 @@
     @includeIf('user-front.seabbq-desifoodie-desices.desifoodie.partials.footer')
 @elseif($activeTheme == 'desices')
     @includeIf('user-front.seabbq-desifoodie-desices.desices.partials.footer')
-<!-- @elseif($activeTheme == 'elack')
-    @includeIf('user-front.elack.partials.footer') -->
+<!-- @elseif($activeTheme == 'elak')
+    @includeIf('user-front.elak.partials.footer') -->
 @endif

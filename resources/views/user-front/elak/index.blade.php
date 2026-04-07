@@ -3,7 +3,7 @@
     {{ $keywords['Home'] ?? __('Home') }}
 @endsection
 @section('style')
-    @includeIf('user-front.elack.include.elack_css')
+    @includeIf('user-front.elak.include.elak_css')
     <style>
         .toast-success, .toast-error, .toast-warning, .toast-info {
             background: #0f5156 !important;
@@ -22,12 +22,12 @@
 @section('content')
     <!-- Home-area start-->
     <!--===Start Hero Section====--->
-    @includeIf('user-front.elack.heroSeaction')
+    @includeIf('user-front.elak.heroSeaction')
     <!---===End Hero Section ==-->
 
   <!-- Start menu Section -->
     @if ($userBs->menu_section == 1)
-        @includeIf('user-front.elack.categoryProductSection')
+        @includeIf('user-front.elak.categoryProductSection')
     @endif
     <!-- End menu Section -->
   
@@ -35,5 +35,5 @@
 @endsection
 
 @section('script')
-    @includeIf('user-front.elack.include.elack_js')
+    @includeIf('user-front.elak.include.elak_js')
 @endsection

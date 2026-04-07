@@ -5,16 +5,16 @@
 @endsection
 
 @section('style')
-    @includeIf('user-front.elack.include.elack_css')
+    @includeIf('user-front.elak.include.elak_css')
 <style>
     :root {
-        --elack-primary: #0f5156;
-        --elack-bg: #f4f6f9;
-        --elack-card: #ffffff;
+        --elak-primary: #0f5156;
+        --elak-bg: #f4f6f9;
+        --elak-card: #ffffff;
     }
 
     body {
-        background-color: var(--elack-bg);
+        background-color: var(--elak-bg);
     }
 
     .login-page-wrapper {
@@ -37,7 +37,7 @@
     }
 
     .login-form-card {
-        background: var(--elack-card);
+        background: var(--elak-card);
         padding: 40px;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -49,7 +49,7 @@
     }
     .login-branding i {
         font-size: 2.5rem;
-        color: var(--elack-primary);
+        color: var(--elak-primary);
         margin-bottom: 10px;
     }
     .login-branding h2 {
@@ -59,18 +59,18 @@
         margin: 0;
     }
 
-    .elack-input-group {
+    .elak-input-group {
         text-align: left;
         margin-bottom: 15px;
     }
-    .elack-label {
+    .elak-label {
         display: block;
         font-size: 0.85rem;
         font-weight: 600;
         color: #555;
         margin-bottom: 6px;
     }
-    .elack-input {
+    .elak-input {
         width: 100%;
         padding: 12px 15px;
         border-radius: 8px;
@@ -78,13 +78,13 @@
         background: #fff;
         transition: border-color 0.2s;
     }
-    .elack-input:focus {
-        border-color: var(--elack-primary);
+    .elak-input:focus {
+        border-color: var(--elak-primary);
         outline: none;
     }
 
     .login-submit-btn {
-        background: var(--elack-primary);
+        background: var(--elak-primary);
         color: #fff;
         width: 100%;
         padding: 14px;
@@ -137,17 +137,17 @@
                     @csrf
                     <input type="hidden" name="pass_token" value="{{ request('pass_token') }}">
 
-                    <div class="elack-input-group">
-                        <label class="elack-label">{{ $keywords['New_Password'] ?? __('New Password') }} *</label>
-                        <input type="password" name="password" class="elack-input" placeholder="{{ __('New Password') }}" required>
+                    <div class="elak-input-group">
+                        <label class="elak-label">{{ $keywords['New_Password'] ?? __('New Password') }} *</label>
+                        <input type="password" name="password" class="elak-input" placeholder="{{ __('New Password') }}" required>
                         @error('password')
                             <p class="text-danger small mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="elack-input-group">
-                        <label class="elack-label">{{ $keywords['Confirm_Password'] ?? __('Confirm Password') }} *</label>
-                        <input type="password" name="password_confirmation" class="elack-input" placeholder="{{ __('Confirm Password') }}" required>
+                    <div class="elak-input-group">
+                        <label class="elak-label">{{ $keywords['Confirm_Password'] ?? __('Confirm Password') }} *</label>
+                        <input type="password" name="password_confirmation" class="elak-input" placeholder="{{ __('Confirm Password') }}" required>
                         @error('password_confirmation')
                             <p class="text-danger small mt-1">{{ $message }}</p>
                         @enderror

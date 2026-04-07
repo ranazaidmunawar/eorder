@@ -517,11 +517,11 @@
 
         <h6 class="section-header">payment method</h6>
         <div class="payment-method-row">
-            @if($firstOffline)
             <div class="payment-btn active p-category-toggle" onclick="selectPayment('cash')">
                 <div class="btn-text">{{ $keywords['Cash_on_delivery'] ?? __('Cash on delivery') }}</div>
             </div>
-            @endif
+            <!-- @if($firstOffline) -->
+            <!-- @endif -->
 
             @if($firstOnline)
             <div class="payment-btn p-category-toggle" onclick="selectPayment('card')">
@@ -600,12 +600,15 @@
         // Find the button by its click event argument
         $(`.p-category-toggle[onclick*="'${type}'"]`).addClass('active');
         
-        let id = "";
         if (type === 'card') {
             id = "{{ $firstOnline }}";
             $('#paymentInput').val('card');
         } else {
             id = "{{ $firstOffline->id ?? '' }}";
+            // Fallback to the first available offline gateway ID from the server-side if JS variable is empty
+            if (!id && "{{ $ogateways->first()->id ?? '' }}") {
+                id = "{{ $ogateways->first()->id ?? '' }}";
+            }
             $('#paymentInput').val('cash');
         }
         $('#gateway_internal').val(id);
@@ -627,14 +630,17 @@
             };
             action = routeMap[id] || "";
         } else {
-            if (!id) {
-                console.error("No offline gateway ID found");
-                $('#payment').attr('action', '#');
-                return;
+            if (id) {
+                action = "{{ route('product.offline.submit', [getParam(), ':id']) }}".replace(':id', id);
             }
-            action = "{{ route('product.offline.submit', [getParam(), ':id']) }}".replace(':id', id);
         }
-        $('#payment').attr('action', action);
+        
+        if (action) {
+            $('#payment').attr('action', action);
+        } else {
+            console.warn("No valid action for payment type: " + type + " with ID: " + id);
+            $('#payment').attr('action', 'javascript:void(0);');
+        }
     }
 
 

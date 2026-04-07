@@ -5,19 +5,19 @@
 @endsection
 
 @section('style')
-    @includeIf('user-front.elack.include.elack_css')
+    @includeIf('user-front.elak.include.elak_css')
 <style>
     :root {
-        --sushi-primary: #0f5156;
-        --sushi-accent: #ffa726;
-        --sushi-bg: #f4f6f9;
-        --sushi-card: #ffffff;
-        --sushi-text: #333333;
+        --elak-primary: #0f5156;
+        --elak-accent: #ffa726;
+        --elak-bg: #f4f6f9;
+        --elak-card: #ffffff;
+        --elak-text: #333333;
     }
 
     body {
-        background-color: var(--sushi-bg);
-        color: var(--sushi-text);
+        background-color: var(--elak-bg);
+        color: var(--elak-text);
         margin: 0;
         padding: 0;
     }
@@ -28,20 +28,20 @@
         min-height: 100vh;
     }
 
-    /* Standard Sushi Header (matching Screenshot 17) */
-    .sushi-header {
-        background: var(--sushi-primary);
+    /* Standard elak Header (matching Screenshot 17) */
+    .elak-header {
+        background: var(--elak-primary);
         color: #fff;
         padding: 12px 0;
         text-align: center;
         position: relative;
     }
-    .sushi-header .container {
+    .elak-header .container {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    .sushi-header .logo {
+    .elak-header .logo {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
@@ -51,7 +51,7 @@
         align-items: center;
         gap: 8px;
     }
-    .sushi-header .logo i { font-size: 1.2rem; }
+    .elak-header .logo i { font-size: 1.2rem; }
 
     /* Center Section */
     .login-content-center {
@@ -68,7 +68,7 @@
     }
 
     .login-form-card {
-        background: var(--sushi-card);
+        background: var(--elak-card);
         padding: 40px;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -80,7 +80,7 @@
     }
     .login-branding i {
         font-size: 2.5rem;
-        color: var(--sushi-primary);
+        color: var(--elak-primary);
         margin-bottom: 10px;
     }
     .login-branding h2 {
@@ -124,7 +124,7 @@
         background: #eee;
     }
     .or-divider span {
-        background: var(--sushi-card);
+        background: var(--elak-card);
         padding: 0 15px;
         position: relative;
         color: #999;
@@ -155,18 +155,18 @@
     .btn-facebook { background: #3b5998; }
     .btn-google { background: #db4437; }
     
-    .sushi-input-group {
+    .elak-input-group {
         text-align: left;
         margin-bottom: 15px;
     }
-    .sushi-label {
+    .elak-label {
         display: block;
         font-size: 0.85rem;
         font-weight: 600;
         color: #555;
         margin-bottom: 6px;
     }
-    .sushi-input {
+    .elak-input {
         width: 100%;
         padding: 12px 15px;
         border-radius: 8px;
@@ -174,13 +174,13 @@
         background: #fff;
         transition: border-color 0.2s;
     }
-    .sushi-input:focus {
-        border-color: var(--sushi-primary);
+    .elak-input:focus {
+        border-color: var(--elak-primary);
         outline: none;
     }
 
     .login-submit-btn {
-        background: var(--sushi-primary);
+        background: var(--elak-primary);
         color: #fff;
         width: 100%;
         padding: 14px;
@@ -260,14 +260,14 @@
                         </div>
                     @endif
 
-                    <div class="sushi-input-group">
-                        <label class="sushi-label">{{ $keywords['Email_Address'] ?? __('Email Address') }}</label>
-                        <input type="email" name="email" class="sushi-input" placeholder="email@example.com" required>
+                    <div class="elak-input-group">
+                        <label class="elak-label">{{ $keywords['Email_Address'] ?? __('Email Address') }}</label>
+                        <input type="email" name="email" class="elak-input" placeholder="email@example.com" required>
                     </div>
 
-                    <div class="sushi-input-group">
-                        <label class="sushi-label">{{ $keywords['Password'] ?? __('Password') }}</label>
-                        <input type="password" name="password" class="sushi-input" placeholder="••••••••" required>
+                    <div class="elak-input-group">
+                        <label class="elak-label">{{ $keywords['Password'] ?? __('Password') }}</label>
+                        <input type="password" name="password" class="elak-input" placeholder="••••••••" required>
                     </div>
 
                     <button type="submit" class="login-submit-btn">
