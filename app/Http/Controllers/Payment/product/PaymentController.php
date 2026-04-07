@@ -352,14 +352,14 @@ class PaymentController extends Controller
                     $order->delivery_time_end = $tf->end;
                 }
             }
-            if ($bs->postal_code == 0 && $request->has('shipping_charge')) {
+            if ($bs->postal_code == 0 && $request->has('shipping_charge') && !empty($shipping)) {
                 $order->shipping_method = $shipping->title;
                 if (!empty($shipping->free_delivery_amount) && cartTotal() >= $shipping->free_delivery_amount) {
                     $order->shipping_charge = 0;
                 } else {
                     $order->shipping_charge = $shipping->charge;
                 }
-            } elseif ($bs->postal_code == 1) {
+            } elseif ($bs->postal_code == 1 && !empty($shipping)) {
                 if (!empty($shipping->free_delivery_amount) && cartTotal() >= $shipping->free_delivery_amount) {
                     $order->shipping_charge = 0;
                 } else {
