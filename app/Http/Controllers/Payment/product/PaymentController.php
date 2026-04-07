@@ -188,7 +188,7 @@ class PaymentController extends Controller
             'shipping_email' => 'required|sometimes',
             // 'pick_up_date' => 'required|sometimes',
             // 'pick_up_time' => 'required|sometimes',
-            'table_number' => 'required|nullable',
+            // 'table_number' => 'required|nullable',
             // 'shipping_charge' => 'required|nullable',
             'cardNumber' => 'required|sometimes',
             'cardCVC' => 'required|sometimes',
@@ -213,9 +213,9 @@ class PaymentController extends Controller
         }
 
 
-        if ($request->serving_method == 'home_delivery' && $bs->postal_code == 1) {
-            $rules['postal_code'] = 'required';
-        }
+        // if ($request->serving_method == 'home_delivery' && $bs->postal_code == 1) {
+        //     $rules['postal_code'] = 'required';
+        // }
 
         // return $request;
         // delivery date & time validation
